@@ -212,7 +212,7 @@ public class FragmentNewsGDPT extends Fragment {
             viewPagerAdapterTinTucGDPT.notifyDataSetChanged();
 
 
-            // Toast.makeText(,tieuDe,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), tieuDe, Toast.LENGTH_SHORT).show();
         }
     }
 
