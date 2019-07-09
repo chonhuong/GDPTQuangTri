@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "586772782398",
+    "firebase_url": "https://gdptquangtri-79af9.firebaseio.com",
+    "project_id": "gdptquangtri-79af9",
+    "storage_bucket": "gdptquangtri-79af9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586772782398:android:27a956280bc5aeef",
+        "android_client_info": {
+          "package_name": "com.example.gdptquangtri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586772782398-p1lnhb2a5p3k9jli29n116u5kgpc3lt2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gdptquangtri",
+            "certificate_hash": "34560b094776703857af3f8b23178e860fe2fa96"
+          }
+        },
+        {
+          "client_id": "586772782398-bg5i2vf2a5necd1kicl5b490lbgampv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCePfMxmVCPuwiDnrYZhitmc8gpaCfJ7xU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586772782398-bg5i2vf2a5necd1kicl5b490lbgampv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

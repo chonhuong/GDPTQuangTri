@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GDPT QuangTri</string>
+    <string name="title_TroChoi">Trò Chơi</string>
+    <string name="title_newsGDPT">Tin GĐPT</string>
+    <string name="title_newsPS">Tin Phật sự</string>
+    <string name="title_TuHoc">Tu học-Huấn luyện</string>
+</resources>

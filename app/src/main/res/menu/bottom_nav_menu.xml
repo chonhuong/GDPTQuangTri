@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_newsGDPT"
+        android:icon="@drawable/ic_newspaper"
+        android:title="@string/title_newsGDPT" />
+
+    <item
+        android:id="@+id/navigation_newsPS"
+        android:icon="@drawable/ic_newspaper"
+        android:title="@string/title_newsPS" />
+
+    <item
+        android:id="@+id/navigation_TuHoc"
+        android:icon="@drawable/ic_school_black_24dp"
+        android:title="@string/title_TuHoc" />
+    <item
+        android:id="@+id/navigation_TroChoi"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_TroChoi" />
+
+</menu>
