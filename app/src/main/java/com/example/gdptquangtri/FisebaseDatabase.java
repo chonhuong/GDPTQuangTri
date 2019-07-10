@@ -20,9 +20,11 @@ public class FisebaseDatabase {
     public FisebaseDatabase() {
         database = FirebaseDatabase.getInstance();
         mReferenceTroChoi = database.getReference("TroChoi");
+
     }
 
     public void readTroChoi(final DataStatus dataStatus) {
+
         mReferenceTroChoi.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -37,6 +39,7 @@ public class FisebaseDatabase {
                     troChoiArrayList.add(new TroChoi(pubdate, noidung, ten));
                 }
                 dataStatus.DataIsLoaded(troChoiArrayList, key);
+
             }
 
             @Override

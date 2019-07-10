@@ -1,5 +1,6 @@
 package com.example.gdptquangtri;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ public class FragmentTroChoi extends Fragment {
     private List<TroChoi> troChoiArrayList;
     private FirebaseDatabase database;
     private DatabaseReference mReferenceTroChoi;
+    ProgressDialog myProgress;
 
     @Nullable
     @Override
@@ -31,11 +33,18 @@ public class FragmentTroChoi extends Fragment {
         lv_trochoi = view.findViewById(R.id.recycler_TroChoi);
 
         if (ConnectionReceiver.isConnected() == true) {
-
+            myProgress = new ProgressDialog(getActivity());
+            myProgress.setTitle("Đang tải dữ liệu ...");
+            myProgress.setMessage("Vui lòng chờ...");
+            myProgress.setCancelable(true);
+            //Hiển thị Progress Bar
+            myProgress.show();
             new FisebaseDatabase().readTroChoi(new FisebaseDatabase.DataStatus() {
                 @Override
                 public void DataIsLoaded(List<TroChoi> troChois, List<String> key) {
+                    myProgress.dismiss();
                     new RecyclerView_TroChoi().setConfig(lv_trochoi, getActivity(), troChois, key);
+
                 }
 
             });
@@ -48,5 +57,6 @@ public class FragmentTroChoi extends Fragment {
         }
         return view;
     }
+
 
 }
