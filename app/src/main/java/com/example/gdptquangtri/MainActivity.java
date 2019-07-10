@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         } else {
+            count = 0;
             bottomNavigationView.setSelectedItemId(R.id.navigation_newsGDPT);
         }
     }
