@@ -1,6 +1,7 @@
 package com.example.gdptquangtri;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class RecyclerView_TroChoi {
         trochoiAdapter = new TrochoiAdapter(troChois, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(trochoiAdapter);
+
 
 
     }
@@ -83,7 +84,7 @@ public class RecyclerView_TroChoi {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull TroChoiItemView troChoiItemView, int i) {
+        public void onBindViewHolder(@NonNull TroChoiItemView troChoiItemView, final int i) {
             final TroChoi troChoi = troChoiArrayList.get(i);
             troChoiItemView.bind(keys.get(i));
             troChoiItemView.ten.setText(troChoi.getTen());
@@ -91,7 +92,10 @@ public class RecyclerView_TroChoi {
             troChoiItemView.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int position) {
-                    Toast.makeText(mContext, " " + troChoi.getNoiDung(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, ViewTroChoi.class);
+                    intent.putExtra("noidung", troChoi.getNoiDung());
+                    intent.putExtra("ten", troChoi.getTen());
+                    mContext.startActivity(intent);
                 }
             });
 

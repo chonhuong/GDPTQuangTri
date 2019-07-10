@@ -23,6 +23,7 @@ public class FragmentTroChoi extends Fragment {
     private List<TroChoi> troChoiArrayList;
     private FirebaseDatabase database;
     private DatabaseReference mReferenceTroChoi;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,12 +31,15 @@ public class FragmentTroChoi extends Fragment {
         lv_trochoi = view.findViewById(R.id.recycler_TroChoi);
 
         if (ConnectionReceiver.isConnected() == true) {
+
             new FisebaseDatabase().readTroChoi(new FisebaseDatabase.DataStatus() {
                 @Override
                 public void DataIsLoaded(List<TroChoi> troChois, List<String> key) {
                     new RecyclerView_TroChoi().setConfig(lv_trochoi, getActivity(), troChois, key);
                 }
+
             });
+
 
         } else {
             Toast.makeText(getActivity(), "Không có kết nối mạng", Toast.LENGTH_LONG).show();
