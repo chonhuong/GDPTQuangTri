@@ -6,7 +6,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_TroChoi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#9E9A9A"
+        android:padding="4dp"
+        android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

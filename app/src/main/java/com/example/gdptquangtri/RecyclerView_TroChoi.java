@@ -1,5 +1,6 @@
 package com.example.gdptquangtri;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,7 +16,7 @@ import java.util.List;
 public class RecyclerView_TroChoi {
     private Context mContext;
     private TrochoiAdapter trochoiAdapter;
-
+    ProgressDialog myProgress;
     public void setConfig(RecyclerView recyclerView, Context context, List<TroChoi> troChois, List<String> keys) {
         mContext = context;
         trochoiAdapter = new TrochoiAdapter(troChois, keys);

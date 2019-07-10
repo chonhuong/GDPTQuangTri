@@ -16,6 +16,7 @@ public class FisebaseDatabase {
     private FirebaseDatabase database;
     private DatabaseReference mReferenceTroChoi;
 
+
     public FisebaseDatabase() {
         database = FirebaseDatabase.getInstance();
         mReferenceTroChoi = database.getReference("TroChoi");
