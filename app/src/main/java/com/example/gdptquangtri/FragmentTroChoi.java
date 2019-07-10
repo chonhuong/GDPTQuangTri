@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentTroChoi extends Fragment {
@@ -29,9 +28,14 @@ public class FragmentTroChoi extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_trochoi, container, false);
         lv_trochoi = view.findViewById(R.id.recycler_TroChoi);
-        troChoiArrayList = new ArrayList<>();
-        if (ConnectionReceiver.isConnected() == true) {
 
+        if (ConnectionReceiver.isConnected() == true) {
+            new FisebaseDatabase().readTroChoi(new FisebaseDatabase.DataStatus() {
+                @Override
+                public void DataIsLoaded(List<TroChoi> troChois, List<String> key) {
+                    new RecyclerView_TroChoi().setConfig(lv_trochoi, getActivity(), troChois, key);
+                }
+            });
 
         } else {
             Toast.makeText(getActivity(), "Không có kết nối mạng", Toast.LENGTH_LONG).show();

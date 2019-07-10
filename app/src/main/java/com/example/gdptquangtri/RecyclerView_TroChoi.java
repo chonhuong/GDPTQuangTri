@@ -19,7 +19,7 @@ public class RecyclerView_TroChoi {
         trochoiAdapter = new TrochoiAdapter(troChois, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(trochoiAdapter);
-       
+
     }
 
     class TroChoiItemView extends RecyclerView.ViewHolder {

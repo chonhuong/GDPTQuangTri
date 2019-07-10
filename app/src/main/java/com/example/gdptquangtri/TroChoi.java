@@ -3,8 +3,11 @@ package com.example.gdptquangtri;
 public class TroChoi {
     private String Ten, NoiDung, pubdate;
 
+    public TroChoi() {
 
-    public TroChoi(String noiDung, String pubdate, String ten) {
+    }
+
+    public TroChoi(String pubdate, String noiDung, String ten) {
         Ten = ten;
         NoiDung = noiDung;
         this.pubdate = pubdate;
