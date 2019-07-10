@@ -1,7 +1,7 @@
 package com.example.gdptquangtri;
 
 public class TroChoi {
-    private String Ten, NoiDung, pubdate;
+    private String Ten, NoiDung, PubDate;
 
     public TroChoi() {
 
@@ -10,15 +10,15 @@ public class TroChoi {
     public TroChoi(String pubdate, String noiDung, String ten) {
         Ten = ten;
         NoiDung = noiDung;
-        this.pubdate = pubdate;
+        PubDate = pubdate;
     }
 
-    public String getPubdate() {
-        return pubdate;
+    public String getPubDate() {
+        return PubDate;
     }
 
-    public void setPubdate(String pubdate) {
-        this.pubdate = pubdate;
+    public void setPubDate(String pubDate) {
+        PubDate = pubDate;
     }
 
     public String getTen() {

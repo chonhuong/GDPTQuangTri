@@ -29,8 +29,11 @@ public class FisebaseDatabase {
                 List<String> key = new ArrayList<>();
                 for (DataSnapshot keynode : dataSnapshot.getChildren()) {
                     key.add(keynode.getKey());
-                    TroChoi troChoi = keynode.getValue(TroChoi.class);
-                    troChoiArrayList.add(troChoi);
+                    // TroChoi troChoi = keynode.getValue(TroChoi.class);
+                    String ten = keynode.getValue(TroChoi.class).getTen();
+                    String pubdate = keynode.getValue(TroChoi.class).getPubDate();
+                    String noidung = keynode.getValue(TroChoi.class).getNoiDung();
+                    troChoiArrayList.add(new TroChoi(pubdate, noidung, ten));
                 }
                 dataStatus.DataIsLoaded(troChoiArrayList, key);
             }

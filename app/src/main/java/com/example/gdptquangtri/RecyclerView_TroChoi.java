@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,48 +22,79 @@ public class RecyclerView_TroChoi {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(trochoiAdapter);
 
+
     }
 
-    class TroChoiItemView extends RecyclerView.ViewHolder {
+    public interface ItemClickListener {
+        void onClick(View view, int position);
+    }
+
+    class TroChoiItemView extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView ten;
         private TextView pubdate;
 
+
         private String key;
 
+        private ItemClickListener itemClickListener;
 
-        public TroChoiItemView(ViewGroup parent) {
-            super(LayoutInflater.from(mContext).inflate(R.layout.trochoi_list_item, parent, false));
+        public TroChoiItemView(View itemView) {
+            super(itemView);
             ten = itemView.findViewById(R.id.txt_TenTroChoi);
             pubdate = itemView.findViewById(R.id.txt_pubdateTroChoi);
-
+            itemView.setOnClickListener(this);
 
         }
 
-        public void bind(TroChoi troChoi, String key) {
-            ten.setText(troChoi.getTen());
-            pubdate.setText(troChoi.getPubdate());
+        public void setItemClickListener(ItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+
+
+        public void bind(String key) {
+
+
             this.key = key;
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v, getAdapterPosition());
         }
     }
 
     class TrochoiAdapter extends RecyclerView.Adapter<TroChoiItemView> {
         private List<TroChoi> troChoiArrayList;
-        private List<String> key;
+        private List<String> keys;
 
         public TrochoiAdapter(List<TroChoi> trochoi, List<String> key) {
             this.troChoiArrayList = trochoi;
-            this.key = key;
+            this.keys = key;
         }
 
         @NonNull
         @Override
         public TroChoiItemView onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new TroChoiItemView(viewGroup);
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+
+            View itemView = inflater.inflate(R.layout.trochoi_list_item, viewGroup, false);
+            return new TroChoiItemView(itemView);
         }
 
         @Override
         public void onBindViewHolder(@NonNull TroChoiItemView troChoiItemView, int i) {
-            troChoiItemView.bind(troChoiArrayList.get(i), key.get(i));
+            final TroChoi troChoi = troChoiArrayList.get(i);
+            troChoiItemView.bind(keys.get(i));
+            troChoiItemView.ten.setText(troChoi.getTen());
+            troChoiItemView.pubdate.setText(troChoi.getPubDate());
+            troChoiItemView.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    Toast.makeText(mContext, " " + troChoi.getNoiDung(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
 
         @Override
