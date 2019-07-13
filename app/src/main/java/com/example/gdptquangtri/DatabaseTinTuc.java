@@ -16,9 +16,9 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_GDPT_TABLE = "create table tb_GDPT(id Integer primary key autoincrement, title text,link text, pubdate text )";
+        String CREATE_GDPT_TABLE = "create table tb_GDPT(id Integer primary key autoincrement, title text,link text, pubdate text, hinhanh blob )";
         String CREATE_PhatSu_TABLE = "create table tb_PhatSu(id Integer primary key autoincrement, title text,link text, pubdate text )";
-        String CREATE_VPGDPT_TABLE = "create table tb_VPGDPT(id Integer primary key autoincrement, title text,link text, pubdate text )";
+        String CREATE_VPGDPT_TABLE = "create table tb_VPGDPT(id Integer primary key autoincrement, title text,link text, pubdate text, hinhanh blob )";
         String CREATE_VPPhatSu_TABLE = "create table tb_VPPhatSu(id Integer primary key autoincrement, title text,link text, pubdate text )";
         db.execSQL(CREATE_GDPT_TABLE);
         db.execSQL(CREATE_PhatSu_TABLE);
@@ -43,6 +43,7 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
         values.put("title", gdpt.getTitle());
         values.put("link", gdpt.getLink());
         values.put("pubdate", gdpt.getPubDate());
+        values.put("hinhanh", gdpt.getHinhanh());
         long id = db.insert("tb_GDPT", null, values);
         db.close();
         return id;
@@ -50,12 +51,12 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
 
     public TinTucGDPT getGDPT(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query("tb_GDPT", new String[]{"id", "title", "link", "pubdate"}, "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = db.query("tb_GDPT", new String[]{"id", "title", "link", "pubdate", "hinhanh"}, "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
 
-        TinTucGDPT contacts = new TinTucGDPT(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        TinTucGDPT contacts = new TinTucGDPT(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4));
         cursor.close();
         db.close();
         return contacts;
@@ -69,7 +70,7 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
 
-                arrayList.add(new TinTucGDPT(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                arrayList.add(new TinTucGDPT(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4)));
             } while (cursor.moveToNext());
 
         }
@@ -83,6 +84,7 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
         values.put("title", gdpt.getTitle());
         values.put("link", gdpt.getLink());
         values.put("pubdate", gdpt.getPubDate());
+        values.put("hinhanh", gdpt.getHinhanh());
         long id = db.insert("tb_VPGDPT", null, values);
         db.close();
         return id;
@@ -90,12 +92,12 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
 
     public TinTucGDPT getVPGDPT(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query("tb_VPGDPT", new String[]{"id", "title", "link", "pubdate"}, "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = db.query("tb_VPGDPT", new String[]{"id", "title", "link", "pubdate", "hinhanh"}, "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
 
-        TinTucGDPT contacts = new TinTucGDPT(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        TinTucGDPT contacts = new TinTucGDPT(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4));
         cursor.close();
         db.close();
         return contacts;
@@ -109,7 +111,7 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
 
-                arrayList.add(new TinTucGDPT(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                arrayList.add(new TinTucGDPT(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4)));
             } while (cursor.moveToNext());
 
         }
