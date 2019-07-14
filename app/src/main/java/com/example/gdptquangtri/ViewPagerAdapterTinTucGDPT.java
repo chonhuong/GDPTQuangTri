@@ -59,6 +59,8 @@ public class ViewPagerAdapterTinTucGDPT extends PagerAdapter {
                 .load(tinTucGDPT.getSrc())
                 .placeholder(R.drawable.ic_gdpt)
                 .into(imageView);
+
+
         container.addView(itemView);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

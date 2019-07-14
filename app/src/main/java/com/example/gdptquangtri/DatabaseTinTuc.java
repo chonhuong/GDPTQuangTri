@@ -17,9 +17,9 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_GDPT_TABLE = "create table tb_GDPT(id Integer primary key autoincrement, title text,link text, pubdate text, hinhanh blob )";
-        String CREATE_PhatSu_TABLE = "create table tb_PhatSu(id Integer primary key autoincrement, title text,link text, pubdate text )";
+        String CREATE_PhatSu_TABLE = "create table tb_PhatSu(id Integer primary key autoincrement, title text,link text, pubdate text, hinhanh blob )";
         String CREATE_VPGDPT_TABLE = "create table tb_VPGDPT(id Integer primary key autoincrement, title text,link text, pubdate text, hinhanh blob )";
-        String CREATE_VPPhatSu_TABLE = "create table tb_VPPhatSu(id Integer primary key autoincrement, title text,link text, pubdate text )";
+        String CREATE_VPPhatSu_TABLE = "create table tb_VPPhatSu(id Integer primary key autoincrement, title text,link text, pubdate text,hinhanh blob )";
         db.execSQL(CREATE_GDPT_TABLE);
         db.execSQL(CREATE_PhatSu_TABLE);
         db.execSQL(CREATE_VPGDPT_TABLE);
@@ -37,13 +37,13 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
     }
 
     ///----------------------------------------------------------------------------------------
-    public long insertGDPT(TinTucGDPT gdpt) {
+    public long insertGDPT(String title, String link, String pubdate, byte[] hinhanh) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("title", gdpt.getTitle());
-        values.put("link", gdpt.getLink());
-        values.put("pubdate", gdpt.getPubDate());
-        values.put("hinhanh", gdpt.getHinhanh());
+        values.put("title", title);
+        values.put("link", link);
+        values.put("pubdate", pubdate);
+        values.put("hinhanh", hinhanh);
         long id = db.insert("tb_GDPT", null, values);
         db.close();
         return id;
@@ -78,13 +78,13 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
     }
 ///----------------------------------------------------------------------------------------
 
-    public long insertVPGDPT(TinTucGDPT gdpt) {
+    public long insertVPGDPT(String title, String link, String pubdate, byte[] hinhanh) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("title", gdpt.getTitle());
-        values.put("link", gdpt.getLink());
-        values.put("pubdate", gdpt.getPubDate());
-        values.put("hinhanh", gdpt.getHinhanh());
+        values.put("title", title);
+        values.put("link", link);
+        values.put("pubdate", pubdate);
+        values.put("hinhanh", hinhanh);
         long id = db.insert("tb_VPGDPT", null, values);
         db.close();
         return id;
@@ -123,12 +123,13 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
 ///----------------------------------------------------------------------------------------
 
 
-    public long insertPS(NewsPhatSu ps) {
+    public long insertPS(String title, String link, String pubdate, byte[] hinhanh) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("title", ps.getTitle());
-        values.put("link", ps.getLink());
-        values.put("pubdate", ps.getPubDate());
+        values.put("title", title);
+        values.put("link", link);
+        values.put("pubdate", pubdate);
+        values.put("hinhanh", hinhanh);
         long id = db.insert("tb_PhatSu", null, values);
         db.close();
         return id;
@@ -136,12 +137,12 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
 
     public NewsPhatSu getPS(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query("tb_PhatSu", new String[]{"id", "title", "link", "pubdate"}, "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = db.query("tb_PhatSu", new String[]{"id", "title", "link", "pubdate", "hinhanh"}, "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
 
-        NewsPhatSu contacts = new NewsPhatSu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        NewsPhatSu contacts = new NewsPhatSu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4));
         cursor.close();
         db.close();
         return contacts;
@@ -155,7 +156,7 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
 
-                arrayList.add(new NewsPhatSu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                arrayList.add(new NewsPhatSu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4)));
             } while (cursor.moveToNext());
 
         }
@@ -164,12 +165,13 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
 
     ///----------------------------------------------------------------------------------------
 
-    public long insertVPPS(NewsPhatSu ps) {
+    public long insertVPPS(String title, String link, String pubdate, byte[] hinhanh) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("title", ps.getTitle());
-        values.put("link", ps.getLink());
-        values.put("pubdate", ps.getPubDate());
+        values.put("title", title);
+        values.put("link", link);
+        values.put("pubdate", pubdate);
+        values.put("hinhanh", hinhanh);
         long id = db.insert("tb_VPPhatSu", null, values);
         db.close();
         return id;
@@ -177,12 +179,12 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
 
     public NewsPhatSu getVPPS(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query("tb_VPPhatSu", new String[]{"id", "title", "link", "pubdate"}, "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = db.query("tb_VPPhatSu", new String[]{"id", "title", "link", "pubdate", "hinhanh"}, "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
 
-        NewsPhatSu contacts = new NewsPhatSu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        NewsPhatSu contacts = new NewsPhatSu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4));
         cursor.close();
         db.close();
         return contacts;
@@ -196,7 +198,7 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
 
-                arrayList.add(new NewsPhatSu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                arrayList.add(new NewsPhatSu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4)));
             } while (cursor.moveToNext());
 
         }

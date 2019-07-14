@@ -3,7 +3,14 @@ package com.example.gdptquangtri;
 public class NewsPhatSu {
     private String title, link, src, pubDate;
     private int id;
+    private byte[] hinhanh;
 
+    public NewsPhatSu(String title, String link, String pubDate, byte[] hinhanh) {
+        this.title = title;
+        this.link = link;
+        this.pubDate = pubDate;
+        this.hinhanh = hinhanh;
+    }
 
     public NewsPhatSu(String title, String link, String src, String pubDate) {
         this.title = title;
@@ -13,22 +20,26 @@ public class NewsPhatSu {
         this.pubDate = pubDate;
     }
 
-    public NewsPhatSu(String title, String link, String src) {
-        this.title = title;
-        this.link = link;
 
-        this.src = src;
+    public NewsPhatSu(int id, String title, String link, String pubDate, byte[] hinhanh) {
 
-    }
-
-    public NewsPhatSu(int id, String title, String link, String src) {
-        this.title = title;
-        this.link = link;
-        this.src = src;
         this.id = id;
+        this.title = title;
+        this.link = link;
+        this.pubDate = pubDate;
+
+        this.hinhanh = hinhanh;
     }
 
     public NewsPhatSu() {
+    }
+
+    public byte[] getHinhanh() {
+        return hinhanh;
+    }
+
+    public void setHinhanh(byte[] hinhanh) {
+        this.hinhanh = hinhanh;
     }
 
     public int getId() {

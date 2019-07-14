@@ -36,7 +36,7 @@ public class KiemTraInternetGDPT extends AppCompatActivity {
     public void Load() {
 
         Intent intent = new Intent(this, ViewNewsPhatSu.class);
-        //  intent.putExtra("link",link);
+        // intent.putExtra("link",link);
         startActivity(intent);
 
     }

@@ -170,25 +170,7 @@ public class FragmentNewsPS extends Fragment {
                     arrayViewPagerPhatSu.add(new NewsPhatSu(tieuDe, link, hinhanh, pubDate));
                 } else {
                     arrayPhatSu.add(new NewsPhatSu(tieuDe, link, hinhanh, pubDate));
-                    listDBPS = db.getAllPS();
-                    if (listDBPS.size() < 1) {
-                        long id = db.insertPS(new NewsPhatSu(tieuDe, link, hinhanh, pubDate));
-                        NewsPhatSu newsPhatSu = db.getPS(id);
-                        listDBPS.add(0, newsPhatSu);
-                    }
 
-                    int k = 0;
-                    for (int j = 0; j < listDBPS.size(); j++) {
-                        NewsPhatSu newsPhatSu = listDBPS.get(j);
-
-                        if (newsPhatSu.getTitle().equalsIgnoreCase(tieuDe)) {
-                            k++;
-                        }
-                    }
-
-                    if (k == 0) {
-                        db.insertPS(new NewsPhatSu(tieuDe, link, hinhanh, pubDate));
-                    }
                 }
 
 

@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -20,10 +22,13 @@ public class MainActivity extends AppCompatActivity {
     int count = 1;
     TextView textview;
     LayoutParams layoutparams;
+    private DrawerLayout dr;
+    private ActionBarDrawerToggle abdr;
     //private TextView mTextMessage;
     private boolean isOnline;
     //------------------------------------------------------------------------------------------------
     private ActionBar actionbar;
+
     //------------------------------------------------------------------------------------------------
     //Chuyển layout trong bottomNavigation
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_newsGDPT:
                     fragment = new FragmentNewsGDPT();
+                    // fragment = new FragmentNewsPS();
                     ActionBarTitleGravity("Tin tức GĐPT");
                     loadFragment(fragment);
 
@@ -87,18 +93,52 @@ public class MainActivity extends AppCompatActivity {
 
         loadFragment(fragment);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("Hello, World!");
+
 
     }
+//    public void DrawerNavigation(){
+//        actionbar = getSupportActionBar();
+//        dr=(DrawerLayout)findViewById(R.id.drawerlayout);
+//
+//        abdr = new ActionBarDrawerToggle(this,dr,R.string.open,R.string.close);
+//        abdr.setDrawerIndicatorEnabled(true);
+//        dr.addDrawerListener(abdr);
+//        abdr.syncState();
+//        actionbar.setDisplayHomeAsUpEnabled(true);
+//        final NavigationView na=(NavigationView)findViewById(R.id.nav_drawer);
+//        na.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//                switch (menuItem.getItemId()) {
+//                    case R.id.navigation_newsGDPT1:
+//
+//                        return true;
+//                    case R.id.navigation_newsPS1:
+//
+//
+//                        return true;
+//                    case R.id.navigation_TuHoc1:
+//
+//
+//                        return true;
+//                    case R.id.navigation_TroChoi1:
+//
+//
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
+//    }
+
+
 
     @Override
     public void onBackPressed() {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         int seletedItemId = bottomNavigationView.getSelectedItemId();
+
         if (R.id.navigation_newsGDPT == seletedItemId) {
             if (count == 2)
                 this.finish();
@@ -132,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         textview.setGravity(Gravity.CENTER);
 
         textview.setTextSize(20);
+
 
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
