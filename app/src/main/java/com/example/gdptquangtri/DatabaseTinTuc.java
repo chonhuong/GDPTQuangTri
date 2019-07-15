@@ -119,7 +119,14 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public void deleteVPGDPT(String title1) {
 
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("tb_VPGDPT", "title" + " = ?",
+                new String[]{String.valueOf(title1)});
+        db.close();
+    }
 ///----------------------------------------------------------------------------------------
 
 
@@ -203,5 +210,14 @@ public class DatabaseTinTuc extends SQLiteOpenHelper {
 
         }
         return arrayList;
+    }
+
+    public void deleteVPPS(String title1) {
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("tb_VPPhatSu", "title" + " = ?",
+                new String[]{String.valueOf(title1)});
+        db.close();
     }
 }

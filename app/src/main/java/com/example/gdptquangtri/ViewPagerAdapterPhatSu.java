@@ -2,6 +2,8 @@ package com.example.gdptquangtri;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +14,15 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ViewPagerAdapterPhatSu extends PagerAdapter {
     private LayoutInflater inflater;
 
-    private ArrayList<NewsPhatSu> arrayList;
+    private List<NewsPhatSu> arrayList;
     private Context context;
 
-    public ViewPagerAdapterPhatSu(Context mContext, ArrayList<NewsPhatSu> arrayList1) {
+    public ViewPagerAdapterPhatSu(Context mContext, List<NewsPhatSu> arrayList1) {
         this.context = mContext;
         inflater = LayoutInflater.from(mContext);
         arrayList = arrayList1;
@@ -54,11 +56,23 @@ public class ViewPagerAdapterPhatSu extends PagerAdapter {
 
         NewsPhatSu newsPhatSu = arrayList.get(position);
         final String link = newsPhatSu.getLink();
-        title.setText(newsPhatSu.getTitle());
-        Picasso.with(context)
-                .load(newsPhatSu.getSrc())
-                .placeholder(R.drawable.ic_gdpt)
-                .into(imageView);
+
+        if (ConnectionReceiver.isConnected()) {
+
+            title.setText(newsPhatSu.getTitle());
+            Picasso.with(context)
+                    .load(newsPhatSu.getSrc())
+                    .placeholder(R.drawable.ic_gdpt)
+                    .into(imageView);
+
+
+        } else {
+            title.setText(newsPhatSu.getTitle());
+            byte[] hinhanh = newsPhatSu.getHinhanh();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(hinhanh, 0, hinhanh.length);
+            imageView.setImageBitmap(bitmap);
+
+        }
         container.addView(itemView);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,7 +3,6 @@ package com.example.gdptquangtri;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,47 +53,19 @@ public class ArrayAdapterPhatSu extends BaseAdapter {
 
         NewsPhatSu newsPhatSu = (NewsPhatSu) getItem(position);
         //set data
-        title.setText(newsPhatSu.getTitle());
-        pudata.setText(newsPhatSu.getPubDate());
+
         if (ConnectionReceiver.isConnected() == true) {
+            title.setText(newsPhatSu.getTitle());
+            pudata.setText(newsPhatSu.getPubDate());
             Picasso.with(context)
                     .load(newsPhatSu.getSrc())
                     .placeholder(R.drawable.ic_gdpt)
                     .into(img);
 
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) img.getDrawable();
-            Bitmap bitmap = bitmapDrawable.getBitmap();
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] hinhanh = stream.toByteArray();
 
-            String pubDate = newsPhatSu.getPubDate();
-            String link = newsPhatSu.getLink();
-            String tieuDe = newsPhatSu.getTitle();
-
-
-            listDBPS = db.getAllPS();
-            if (listDBPS.size() < 1) {
-                long id = db.insertPS(tieuDe, link, pubDate, hinhanh);
-                NewsPhatSu newsPhatSu1 = db.getPS(id);
-                listDBPS.add(0, newsPhatSu1);
-            }
-
-            int k = 0;
-            for (int j = 0; j < listDBPS.size(); j++) {
-                NewsPhatSu newsPhatSu1 = listDBPS.get(j);
-
-                if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
-                    k++;
-                }
-            }
-
-            if (k == 0) {
-                long id = db.insertPS(tieuDe, link, pubDate, hinhanh);
-                NewsPhatSu newsPhatSu1 = db.getPS(id);
-                listDBPS.add(0, newsPhatSu1);
-            }
         } else {
+            title.setText(newsPhatSu.getTitle());
+            pudata.setText(newsPhatSu.getPubDate());
             byte[] hinhanh = newsPhatSu.getHinhanh();
             Bitmap bitmap = BitmapFactory.decodeByteArray(hinhanh, 0, hinhanh.length);
             img.setImageBitmap(bitmap);

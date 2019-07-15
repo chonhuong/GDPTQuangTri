@@ -4,27 +4,28 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -48,9 +49,8 @@ public class FragmentNewsGDPT extends Fragment {
     private String url = "https://gdptquangtri.vn/category/tin-tuc/tin-gia-dinh-phat-tu/feed";
     private boolean isOnline;
 
+    private ImageView img;
 
-    ImageLoader imageLoader;
-    Bitmap mybitmap;
 
     @Nullable
     @Override
@@ -64,8 +64,12 @@ public class FragmentNewsGDPT extends Fragment {
         myProgress = new ProgressDialog(getActivity());
         db = new DatabaseTinTuc(getActivity());
         arrayListDBTT = new ArrayList<>();
+        arrayListVPDBTT = new ArrayList<>();
+
+        img = new ImageView(getActivity());
         isOnline = ConnectionReceiver.isConnected();
 
+        // shareDialog=new ShareDialog();
         if (isOnline == true) {
             myProgress.setTitle("Đang tải dữ liệu ...");
             myProgress.setMessage("Vui lòng chờ...");
@@ -106,41 +110,71 @@ public class FragmentNewsGDPT extends Fragment {
         return view;
     }
 
-    public Bitmap getBitmapFromURL(String src) {
+    public void insertGDPT(String tieuDe, String link, String pubDate, ImageView img) {
+        //  ImageView img = view.findViewById(R.id.imgGDPT);
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) img.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] hinhanh = stream.toByteArray();
 
-        try {
 
-            //   URL url=new URL(src);
-            // HttpURLConnection connection=(HttpURLConnection)url.openConnection();
-            // connection.setDoInput(true);
-            //   InputStream input=connection.getInputStream();
-            Bitmap mybitmap = BitmapFactory.decodeStream((InputStream) new URL(src).getContent());
-            return mybitmap;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        arrayListDBTT = db.getAllGDPT();
+        if (arrayListDBTT.size() < 1) {
+            long id = db.insertGDPT(tieuDe, link, pubDate, hinhanh);
+            TinTucGDPT tinTucGDPT1 = db.getGDPT(id);
+            arrayListDBTT.add(0, tinTucGDPT1);
         }
 
+        int k = 0;
+        for (int j = 0; j < arrayListDBTT.size(); j++) {
+            arrayListDBTT = db.getAllGDPT();
+            TinTucGDPT tinTucGDPT1 = arrayListDBTT.get(j);
+
+            if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
+                k++;
+            }
+        }
+
+        if (k == 0) {
+            db.insertGDPT(tieuDe, link, pubDate, hinhanh);
+        }
     }
+//-------------------------------------------------------------------------------------------------------------
 
-    private Bitmap anh(String url) {
+    //-------------------------------------------------------------------------------------------------------------
+    public void insertVPGDPT(String tieuDe, String link, String pubDate, ImageView img) {
+        //  ImageView img = view.findViewById(R.id.imgGDPT);
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) img.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] hinhanh = stream.toByteArray();
 
-        imageLoader.get(url, new ImageLoader.ImageListener() {
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                if (response.getBitmap() != null && isImmediate) {
-                    mybitmap = response.getBitmap();
-                } else {
-                    mybitmap = response.getBitmap();
-                }
+
+        arrayListVPDBTT = db.getAllGDPT();
+        if (arrayListVPDBTT.size() < 1) {
+            long id = db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
+            TinTucGDPT tinTucGDPT1 = db.getVPGDPT(id);
+            arrayListVPDBTT.add(0, tinTucGDPT1);
+        }
+
+        int k = 0;
+        String title = "";
+        for (int j = 0; j < arrayListVPDBTT.size(); j++) {
+            arrayListVPDBTT = db.getAllVPGDPT();
+            TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(j);
+
+            if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
+                title = tinTucGDPT1.getTitle();
+                k++;
             }
+        }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        return mybitmap;
+        if (k == 0) {
+            db.deleteVPGDPT(title);
+            db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
+        }
     }
 
     private class ReadGDPT extends AsyncTask<String, Integer, String> {
@@ -201,64 +235,13 @@ public class FragmentNewsGDPT extends Fragment {
                 pubDate = parser.getValue(element, "pubDate");
                 //-------------------------
 
-
-//                Bitmap bitmap = null;
-//                try {
-//                    bitmap = Picasso.with(getActivity())
-//                            .load(hinhanh)
-//                            .get();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-
-
-
-
-
                 if (i == 0) {
                     gdptArrayList.add(new TinTucGDPT(tieuDe, link, hinhanh, pubDate));
-//                    arrayListVPDBTT = db.getAllVPGDPT();
-//                    if (arrayListVPDBTT.size() < 1) {
-//                        long id= db.insertVPGDPT(new TinTucGDPT(tieuDe, link, pubDate, hinhanh11));
-//                    TinTucGDPT tinTucGDPT = db.getVPGDPT(id);
-//                      arrayListVPDBTT.add(0, tinTucGDPT);
-//                    }
-//
-//                    int k = 0;
-//                    for (int j = 0; j < 1; j++) {
-//                        TinTucGDPT tinTucGDPT = arrayListVPDBTT.get(j);
-//
-//                        if (tinTucGDPT.getTitle().equalsIgnoreCase(tieuDe)) {
-//                            k++;
-//                        }
-//                    }
-//
-//                    if (k == 0) {
-//                     db.insertVPGDPT(new TinTucGDPT(tieuDe, link, pubDate, hinhanh11));
-                    //  }
+                    new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
                 } else {
                     arrayNewssGDPT.add(new TinTucGDPT(tieuDe, link, hinhanh, pubDate));
-//                    arrayListDBTT = db.getAllGDPT();
-//                    if (arrayListDBTT.size() < 1) {
-//                        long id=  db.insertGDPT(new TinTucGDPT(tieuDe, link, pubDate, hinhanh11));
-//                       TinTucGDPT tinTucGDPT = db.getGDPT(id);
-//                        arrayListDBTT.add(0, tinTucGDPT);
-//                    }
-//
-//                    int k = 0;
-//                    for (int j = 0; j < arrayListDBTT.size(); j++) {
-//                        arrayListDBTT = db.getAllGDPT();
-//                       TinTucGDPT tinTucGDPT = arrayListDBTT.get(j);
-//
-//                       if (tinTucGDPT.getTitle().equalsIgnoreCase(tieuDe)) {
-//                            k++;
-//                       }
-//                    }
-//
-//                    if (k == 0) {
-//                     db.insertGDPT(new TinTucGDPT(tieuDe, link, pubDate, hinhanh11));
-//                    }
+                    new DownloadImageTask(img, pubDate, link, tieuDe).execute(hinhanh);
+
                 }
 
 
@@ -288,4 +271,69 @@ public class FragmentNewsGDPT extends Fragment {
         }
     }
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+        String pubDate;
+        String link1;
+        String tieuDe;
+
+        public DownloadImageTask(ImageView bmImage, String pubDate, String link1, String tieuDe) {
+            this.bmImage = bmImage;
+            this.pubDate = pubDate;
+            this.link1 = link1;
+            this.tieuDe = tieuDe;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+            insertGDPT(tieuDe, link1, pubDate, bmImage);
+
+        }
+    }
+
+    private class DownloadImageTaskVP extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+        String pubDate;
+        String link1;
+        String tieuDe;
+
+        public DownloadImageTaskVP(ImageView bmImage, String pubDate, String link1, String tieuDe) {
+            this.bmImage = bmImage;
+            this.pubDate = pubDate;
+            this.link1 = link1;
+            this.tieuDe = tieuDe;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+            insertVPGDPT(tieuDe, link1, pubDate, bmImage);
+
+        }
+    }
 }
