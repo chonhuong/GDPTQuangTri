@@ -1,16 +1,25 @@
 package com.example.gdptquangtri;
 
 public class TroChoi {
-    private String Ten, NoiDung, PubDate;
+    private String Ten, NoiDung, PubDate, KyTen;
 
     public TroChoi() {
 
     }
 
-    public TroChoi(String pubdate, String noiDung, String ten) {
+    public TroChoi(String pubdate, String noiDung, String ten, String kyten) {
         Ten = ten;
         NoiDung = noiDung;
         PubDate = pubdate;
+        KyTen = kyten;
+    }
+
+    public String getKyTen() {
+        return KyTen;
+    }
+
+    public void setKyTen(String kyTen) {
+        KyTen = kyTen;
     }
 
     public String getPubDate() {

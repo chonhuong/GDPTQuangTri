@@ -14,6 +14,7 @@ public class ViewTroChoi extends AppCompatActivity {
         Intent intent = getIntent();
         String ten = intent.getStringExtra("ten");
         String noidung = intent.getStringExtra("noidung");
+        String kyten = intent.getStringExtra("kyten");
         TextView txtTen = findViewById(R.id.txtTenTroChoi);
         TextView txtNoidung = findViewById(R.id.noidungTroChoi);
         txtTen.setText("     " + ten);

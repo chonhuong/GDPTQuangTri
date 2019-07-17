@@ -96,6 +96,7 @@ public class RecyclerView_TroChoi {
                     Intent intent = new Intent(mContext, ViewTroChoi.class);
                     intent.putExtra("noidung", troChoi.getNoiDung());
                     intent.putExtra("ten", troChoi.getTen());
+                    intent.putExtra("kyten", troChoi.getKyTen());
                     mContext.startActivity(intent);
                 }
             });

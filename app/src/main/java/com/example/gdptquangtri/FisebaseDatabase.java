@@ -2,6 +2,7 @@ package com.example.gdptquangtri;
 
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +37,8 @@ public class FisebaseDatabase {
                     String ten = keynode.getValue(TroChoi.class).getTen();
                     String pubdate = keynode.getValue(TroChoi.class).getPubDate();
                     String noidung = keynode.getValue(TroChoi.class).getNoiDung();
-                    troChoiArrayList.add(new TroChoi(pubdate, noidung, ten));
+                    String kyten = keynode.getValue(TroChoi.class).getKyTen();
+                    troChoiArrayList.add(new TroChoi(pubdate, noidung, ten, kyten));
                 }
                 dataStatus.DataIsLoaded(troChoiArrayList, key);
 
@@ -49,10 +51,25 @@ public class FisebaseDatabase {
         });
     }
 
+    public void AddTroChoi(TroChoi troChoi, final DataStatus dataStatus) {
+        String key = mReferenceTroChoi.push().getKey();
+        mReferenceTroChoi.child(key).setValue(troChoi)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsInserted();
+                    }
+                });
+    }
+
     public interface DataStatus {
         void DataIsLoaded(List<TroChoi> troChois, List<String> key);
 
+        void DataIsInserted();
+
+        void DataIsUpdate();
+
+        void DataIsDelete();
+
     }
-
-
 }

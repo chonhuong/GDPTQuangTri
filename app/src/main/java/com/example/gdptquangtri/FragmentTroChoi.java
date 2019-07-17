@@ -1,6 +1,7 @@
 package com.example.gdptquangtri;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -25,13 +27,23 @@ public class FragmentTroChoi extends Fragment {
     private FirebaseDatabase database;
     private DatabaseReference mReferenceTroChoi;
     ProgressDialog myProgress;
+    private Button btnAdd;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_trochoi, container, false);
         lv_trochoi = view.findViewById(R.id.recycler_TroChoi);
+        btnAdd = view.findViewById(R.id.addtrochoi);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddTroChoi.class);
 
+                startActivity(intent);
+
+            }
+        });
         if (ConnectionReceiver.isConnected() == true) {
             myProgress = new ProgressDialog(getActivity());
             myProgress.setTitle("Đang tải dữ liệu ...");
@@ -44,6 +56,21 @@ public class FragmentTroChoi extends Fragment {
                 public void DataIsLoaded(List<TroChoi> troChois, List<String> key) {
                     myProgress.dismiss();
                     new RecyclerView_TroChoi().setConfig(lv_trochoi, getActivity(), troChois, key);
+
+                }
+
+                @Override
+                public void DataIsInserted() {
+
+                }
+
+                @Override
+                public void DataIsUpdate() {
+
+                }
+
+                @Override
+                public void DataIsDelete() {
 
                 }
 

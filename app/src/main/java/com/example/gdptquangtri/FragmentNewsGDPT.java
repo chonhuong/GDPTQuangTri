@@ -157,24 +157,26 @@ public class FragmentNewsGDPT extends Fragment {
             long id = db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
             TinTucGDPT tinTucGDPT1 = db.getVPGDPT(id);
             arrayListVPDBTT.add(0, tinTucGDPT1);
-        }
-
-        int k = 0;
-        String title = "";
-        for (int j = 0; j < arrayListVPDBTT.size(); j++) {
+        } else {
+            int k = 0;
+            String title = "";
             arrayListVPDBTT = db.getAllVPGDPT();
-            TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(j);
+            for (int j = 0; j < arrayListVPDBTT.size(); j++) {
+                //arrayListVPDBTT = db.getAllVPGDPT();
+                TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(j);
 
-            if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
-                title = tinTucGDPT1.getTitle();
-                k++;
+                if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
+                    title = tinTucGDPT1.getTitle();
+                    k++;
+                }
+
+            }
+            if (k == 0) {
+                db.deleteVPGDPT(title);
+                db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
             }
         }
 
-        if (k == 0) {
-            db.deleteVPGDPT(title);
-            db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
-        }
     }
 
     private class ReadGDPT extends AsyncTask<String, Integer, String> {
@@ -236,11 +238,13 @@ public class FragmentNewsGDPT extends Fragment {
                 //-------------------------
 
                 if (i == 0) {
-                    gdptArrayList.add(new TinTucGDPT(tieuDe, link, hinhanh, pubDate));
+
                     new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+                    gdptArrayList.add(new TinTucGDPT(tieuDe, link, hinhanh, pubDate));
                 } else {
-                    arrayNewssGDPT.add(new TinTucGDPT(tieuDe, link, hinhanh, pubDate));
+
                     new DownloadImageTask(img, pubDate, link, tieuDe).execute(hinhanh);
+                    arrayNewssGDPT.add(new TinTucGDPT(tieuDe, link, hinhanh, pubDate));
 
                 }
 

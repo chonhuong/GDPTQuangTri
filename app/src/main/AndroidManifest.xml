@@ -20,6 +20,8 @@
         <activity android:name=".ViewNewsPhatSu"></activity>
         <activity android:name=".KiemTraInternetGDPT"></activity>
         <activity android:name=".BottomNavActivity"></activity>
+        <activity android:name=".AddTroChoi"></activity>
+        <activity android:name=".DangKyThanhVien"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

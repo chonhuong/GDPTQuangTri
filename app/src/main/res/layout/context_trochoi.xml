@@ -23,4 +23,13 @@
         android:text="nội dung"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/txtKyten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="Nguyên Lai" />
+
 </LinearLayout>
