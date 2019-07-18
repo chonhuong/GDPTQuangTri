@@ -40,8 +40,10 @@ public class FragmentNewsGDPT extends Fragment {
     ViewPager viewPager;
     private ArrayList<TinTucGDPT> gdptArrayList;
     private ViewPagerAdapterTinTucGDPT viewPagerAdapterTinTucGDPT;
+    private ViewPagerAdapterTinTucGDPTOff viewPagerAdapterTinTucGDPTOff;
     private ListView listViewGDPT;
     private ArrayAdapterTinTucGDPT adapterTinTucGDPT;
+    private ArrayAdapterTinTucGDPTOff adapterTinTucGDPTOff;
     private ArrayList<TinTucGDPT> arrayNewssGDPT;
     private DatabaseTinTuc db;
     private List<TinTucGDPT> arrayListDBTT;
@@ -83,8 +85,8 @@ public class FragmentNewsGDPT extends Fragment {
             arrayListDBTT = db.getAllGDPT();
 
 
-            adapterTinTucGDPT = new ArrayAdapterTinTucGDPT(arrayListDBTT, getActivity());
-            listViewGDPT.setAdapter(adapterTinTucGDPT);
+            adapterTinTucGDPTOff = new ArrayAdapterTinTucGDPTOff(arrayListDBTT, getActivity());
+            listViewGDPT.setAdapter(adapterTinTucGDPTOff);
             listViewGDPT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -102,8 +104,8 @@ public class FragmentNewsGDPT extends Fragment {
                 }
             });
             arrayListVPDBTT = db.getAllVPGDPT();
-            viewPagerAdapterTinTucGDPT = new ViewPagerAdapterTinTucGDPT(getActivity(), arrayListVPDBTT);
-            viewPager.setAdapter(viewPagerAdapterTinTucGDPT);
+            viewPagerAdapterTinTucGDPTOff = new ViewPagerAdapterTinTucGDPTOff(getActivity(), arrayListVPDBTT);
+            viewPager.setAdapter(viewPagerAdapterTinTucGDPTOff);
 
         }
 
@@ -169,12 +171,12 @@ public class FragmentNewsGDPT extends Fragment {
                     title = tinTucGDPT1.getTitle();
                     k++;
                 }
+                if (k == 0) {
+                    db.deleteVPGDPT(title);
+                    db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
+                }
+            }
 
-            }
-            if (k == 0) {
-                db.deleteVPGDPT(title);
-                db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
-            }
         }
 
     }

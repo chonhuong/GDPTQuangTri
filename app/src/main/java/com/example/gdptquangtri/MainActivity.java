@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     private EditText edtUser, edtPass;
     private TextView txtClickDK;
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
     private Button btnDN;
 
     //------------------------------------------------------------------------------------------------

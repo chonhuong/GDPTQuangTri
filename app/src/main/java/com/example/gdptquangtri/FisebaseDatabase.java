@@ -24,6 +24,15 @@ public class FisebaseDatabase {
 
     }
 
+    public void UpdateTroChoi(String key, TroChoi troChoi, final DataStatus dataStatus) {
+        mReferenceTroChoi.child(key).setValue(troChoi)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsUpdate();
+                    }
+                });
+    }
     public void readTroChoi(final DataStatus dataStatus) {
 
         mReferenceTroChoi.addValueEventListener(new ValueEventListener() {
@@ -58,6 +67,16 @@ public class FisebaseDatabase {
                     @Override
                     public void onSuccess(Void aVoid) {
                         dataStatus.DataIsInserted();
+                    }
+                });
+    }
+
+    public void DeleteTroChoi(String key, final DataStatus dataStatus) {
+        mReferenceTroChoi.child(key).setValue(null)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsDelete();
                     }
                 });
     }

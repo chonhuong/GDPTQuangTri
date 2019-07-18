@@ -94,6 +94,8 @@ public class RecyclerView_TroChoi {
                 @Override
                 public void onClick(View view, int position) {
                     Intent intent = new Intent(mContext, ViewTroChoi.class);
+                    intent.putExtra("key", keys.get(i));
+                    intent.putExtra("pubdate", troChoi.getPubDate());
                     intent.putExtra("noidung", troChoi.getNoiDung());
                     intent.putExtra("ten", troChoi.getTen());
                     intent.putExtra("kyten", troChoi.getKyTen());

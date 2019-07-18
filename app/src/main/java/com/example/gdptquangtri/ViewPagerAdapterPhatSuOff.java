@@ -2,6 +2,8 @@ package com.example.gdptquangtri;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +12,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
-public class ViewPagerAdapterTinTucGDPT extends PagerAdapter {
+public class ViewPagerAdapterPhatSuOff extends PagerAdapter {
     private LayoutInflater inflater;
 
-    private List<TinTucGDPT> arrayList;
+    private List<NewsPhatSu> arrayList;
     private Context context;
 
-    public ViewPagerAdapterTinTucGDPT(Context mContext, List<TinTucGDPT> arrayList1) {
+    public ViewPagerAdapterPhatSuOff(Context mContext, List<NewsPhatSu> arrayList1) {
         this.context = mContext;
         inflater = LayoutInflater.from(mContext);
         arrayList = arrayList1;
@@ -46,23 +46,20 @@ public class ViewPagerAdapterTinTucGDPT extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        View itemView = inflater.inflate(R.layout.viewpager_titucgdpt, container, false);
-        FrameLayout frameLayout = itemView.findViewById(R.id.frame_ViewPager1);
-        ImageView imageView = itemView.findViewById(R.id.imgviewPagerGDPT);
-        TextView title = itemView.findViewById(R.id.titleViewPagerGDPT);
+        View itemView = inflater.inflate(R.layout.viewpager_phatsu, container, false);
+        FrameLayout frameLayout = itemView.findViewById(R.id.frame_ViewPager);
+        ImageView imageView = itemView.findViewById(R.id.imgviewPagerPS);
+        TextView title = itemView.findViewById(R.id.titleViewPagerPS);
 
 
-        TinTucGDPT tinTucGDPT = arrayList.get(position);
-        final String link = tinTucGDPT.getLink();
+        NewsPhatSu newsPhatSu = arrayList.get(position);
+        final String link = newsPhatSu.getLink();
 
 
-        title.setText(tinTucGDPT.getTitle());
-
-            Picasso.with(context)
-                    .load(tinTucGDPT.getSrc())
-                    .placeholder(R.drawable.ic_gdpt)
-                    .into(imageView);
-
+        title.setText(newsPhatSu.getTitle());
+        byte[] hinhanh = newsPhatSu.getHinhanh();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(hinhanh, 0, hinhanh.length);
+        imageView.setImageBitmap(bitmap);
 
 
         container.addView(itemView);

@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -34,16 +37,7 @@ public class FragmentTroChoi extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_trochoi, container, false);
         lv_trochoi = view.findViewById(R.id.recycler_TroChoi);
-        btnAdd = view.findViewById(R.id.addtrochoi);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddTroChoi.class);
-
-                startActivity(intent);
-
-            }
-        });
+        setHasOptionsMenu(true);
         if (ConnectionReceiver.isConnected() == true) {
             myProgress = new ProgressDialog(getActivity());
             myProgress.setTitle("Đang tải dữ liệu ...");
@@ -85,5 +79,21 @@ public class FragmentTroChoi extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_listtrochoi, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.Menu_addTrochoi:
+                Intent intent = new Intent(getActivity(), AddTroChoi.class);
+
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

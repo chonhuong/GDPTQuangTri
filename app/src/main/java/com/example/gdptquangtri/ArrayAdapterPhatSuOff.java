@@ -1,6 +1,8 @@
 package com.example.gdptquangtri;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +10,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayAdapterPhatSu extends BaseAdapter {
+public class ArrayAdapterPhatSuOff extends BaseAdapter {
     List<NewsPhatSu> psArrayList;
     Context context;
     DatabaseTinTuc db;
     private List<NewsPhatSu> listDBPS;
-    public ArrayAdapterPhatSu(Context context, List<NewsPhatSu> objects) {
+
+    public ArrayAdapterPhatSuOff(Context context, List<NewsPhatSu> objects) {
         this.psArrayList = objects;
         this.context = context;
     }
@@ -54,13 +55,10 @@ public class ArrayAdapterPhatSu extends BaseAdapter {
 
 
         title.setText(newsPhatSu.getTitle());
-            pudata.setText(newsPhatSu.getPubDate());
-            Picasso.with(context)
-                    .load(newsPhatSu.getSrc())
-                    .placeholder(R.drawable.ic_gdpt)
-                    .into(img);
-
-
+        pudata.setText(newsPhatSu.getPubDate());
+        byte[] hinhanh = newsPhatSu.getHinhanh();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(hinhanh, 0, hinhanh.length);
+        img.setImageBitmap(bitmap);
 
 
         // imageView.setImageBitmap();

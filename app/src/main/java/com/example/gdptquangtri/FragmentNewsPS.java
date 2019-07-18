@@ -41,8 +41,10 @@ public class FragmentNewsPS extends Fragment {
     private ListView lvPhatSu;
     private ArrayList<NewsPhatSu> arrayPhatSu;
     private ArrayAdapterPhatSu adapterPS;
+    private ArrayAdapterPhatSuOff adapterPSOff;
     private ViewPager viewPager;
     private ViewPagerAdapterPhatSu viewPagerAdapterPhatSu;
+    private ViewPagerAdapterPhatSuOff viewPagerAdapterPhatSuOff;
     private ArrayList<NewsPhatSu> arrayViewPagerPhatSu;
     private List<NewsPhatSu> listDBPS;
     private List<NewsPhatSu> listVPDBPS;
@@ -96,23 +98,28 @@ public class FragmentNewsPS extends Fragment {
             Toast.makeText(getActivity(), "Không có kết nối mạng", Toast.LENGTH_LONG).show();
             listDBPS = db.getAllPS();
             listVPDBPS = db.getAllVPPS();
-            adapterPS = new ArrayAdapterPhatSu(getActivity(), listDBPS);
+            adapterPSOff = new ArrayAdapterPhatSuOff(getActivity(), listDBPS);
 
-            lvPhatSu.setAdapter(adapterPS);
+            lvPhatSu.setAdapter(adapterPSOff);
 
             lvPhatSu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     NewsPhatSu newsPhatSu = listDBPS.get(position);
-
+                    if (ConnectionReceiver.isConnected() == true) {
+                        Intent intent = new Intent(getActivity(), ViewNewsPhatSu.class);
+                        intent.putExtra("link", newsPhatSu.getLink());
+                        startActivity(intent);
+                    } else {
                     Intent intent = new Intent(getActivity(), KiemTraInternetGDPT.class);
                     intent.putExtra("title", "Tin tức Phật Sự");
-                    startActivity(intent);
+                        startActivity(intent);
+                    }
 
                 }
             });
-            viewPagerAdapterPhatSu = new ViewPagerAdapterPhatSu(getActivity(), listVPDBPS);
-            viewPager.setAdapter(viewPagerAdapterPhatSu);
+            viewPagerAdapterPhatSuOff = new ViewPagerAdapterPhatSuOff(getActivity(), listVPDBPS);
+            viewPager.setAdapter(viewPagerAdapterPhatSuOff);
 
         }
 
@@ -183,13 +190,13 @@ public class FragmentNewsPS extends Fragment {
                     title = newsPhatSu1.getTitle();
                     k++;
                 }
-
+                if (k == 0) {
+                    db.deleteVPGDPT(title);
+                    db.insertVPPS(tieuDe, link, pubDate, hinhanh);
+                }
 
             }
-            if (k == 0) {
-                db.deleteVPGDPT(title);
-                db.insertVPPS(tieuDe, link, pubDate, hinhanh);
-            }
+
         }
     }
 

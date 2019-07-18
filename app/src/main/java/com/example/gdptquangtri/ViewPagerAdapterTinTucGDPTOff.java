@@ -2,6 +2,8 @@ package com.example.gdptquangtri;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +12,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
-public class ViewPagerAdapterTinTucGDPT extends PagerAdapter {
+public class ViewPagerAdapterTinTucGDPTOff extends PagerAdapter {
     private LayoutInflater inflater;
 
     private List<TinTucGDPT> arrayList;
     private Context context;
 
-    public ViewPagerAdapterTinTucGDPT(Context mContext, List<TinTucGDPT> arrayList1) {
+    public ViewPagerAdapterTinTucGDPTOff(Context mContext, List<TinTucGDPT> arrayList1) {
         this.context = mContext;
         inflater = LayoutInflater.from(mContext);
         arrayList = arrayList1;
@@ -57,12 +57,9 @@ public class ViewPagerAdapterTinTucGDPT extends PagerAdapter {
 
 
         title.setText(tinTucGDPT.getTitle());
-
-            Picasso.with(context)
-                    .load(tinTucGDPT.getSrc())
-                    .placeholder(R.drawable.ic_gdpt)
-                    .into(imageView);
-
+        byte[] hinhanh = tinTucGDPT.getHinhanh();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(hinhanh, 0, hinhanh.length);
+        imageView.setImageBitmap(bitmap);
 
 
         container.addView(itemView);

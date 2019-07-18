@@ -64,6 +64,13 @@ public class BottomNavActivity extends AppCompatActivity {
                     ActionBarTitleGravity("Trò chơi sinh hoạt");
                     loadFragment(fragment);
                     return true;
+                case R.id.navigation_Them:
+
+                    fragment = new FragmentThem();
+
+                    ActionBarTitleGravity("Tài khoản của tôi");
+                    loadFragment(fragment);
+                    return true;
             }
             return false;
         }
@@ -78,40 +85,7 @@ public class BottomNavActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-//    public void DrawerNavigation(){
-//        actionbar = getSupportActionBar();
-//        dr=(DrawerLayout)findViewById(R.id.drawerlayout);
-//
-//        abdr = new ActionBarDrawerToggle(this,dr,R.string.open,R.string.close);
-//        abdr.setDrawerIndicatorEnabled(true);
-//        dr.addDrawerListener(abdr);
-//        abdr.syncState();
-//        actionbar.setDisplayHomeAsUpEnabled(true);
-//        final NavigationView na=(NavigationView)findViewById(R.id.nav_drawer);
-//        na.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                switch (menuItem.getItemId()) {
-//                    case R.id.navigation_newsGDPT1:
-//
-//                        return true;
-//                    case R.id.navigation_newsPS1:
-//
-//
-//                        return true;
-//                    case R.id.navigation_TuHoc1:
-//
-//
-//                        return true;
-//                    case R.id.navigation_TroChoi1:
-//
-//
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
-//    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
