@@ -17,20 +17,24 @@
         android:src="@drawable/icongdpt" />
 
     <EditText
+        android:layout_height="35dp"
+        android:paddingLeft="10dp"
         android:id="@+id/login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:textColor="#ffff"
         android:layout_gravity="center"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
-
+        android:textColorHint="#ffff"
         android:background="@drawable/custom_edittext"
         android:drawableLeft="@drawable/ic_login_24dp"
         android:hint="  Email" />
 
     <EditText
+        android:layout_height="35dp"
+        android:paddingLeft="10dp"
         android:id="@+id/pass"
         android:layout_width="match_parent"
         android:layout_gravity="center"
@@ -38,9 +42,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content"
+        android:textColor="#ffff"
         android:background="@drawable/custom_edittext"
-
+        android:textColorHint="#ffff"
         android:drawableLeft="@drawable/ic_pass_24dp"
         android:hint="  Password"
         android:inputType="textPassword" />
@@ -50,8 +54,8 @@
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:background="@drawable/custom_edittext"
-
+        android:background="@drawable/custom_button"
+        android:textColor="#ffff"
         android:text="Đăng nhập" />
 
     <TextView
@@ -78,7 +82,8 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:background="@drawable/custom_edittext"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffff"
 
         android:text="Sử dụng ngay" />
 

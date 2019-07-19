@@ -69,6 +69,7 @@ public class ViewPagerAdapterPhatSuOff extends PagerAdapter {
 
                 Intent intent = new Intent(context, ViewNewsPhatSu.class);
                 intent.putExtra("link", link);
+                intent.putExtra("title", "Tin tức Phật Sự");
                 context.startActivity(intent);
             }
         });

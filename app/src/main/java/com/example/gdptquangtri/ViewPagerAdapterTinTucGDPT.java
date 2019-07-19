@@ -72,6 +72,7 @@ public class ViewPagerAdapterTinTucGDPT extends PagerAdapter {
 
                 Intent intent = new Intent(context, ViewNewsPhatSu.class);
                 intent.putExtra("link", link);
+                intent.putExtra("title", "Tin tức GĐPT");
                 context.startActivity(intent);
             }
         });

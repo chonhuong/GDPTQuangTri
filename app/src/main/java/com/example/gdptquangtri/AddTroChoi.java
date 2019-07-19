@@ -1,10 +1,15 @@
 package com.example.gdptquangtri;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -15,7 +20,9 @@ import java.util.List;
 public class AddTroChoi extends AppCompatActivity {
     private EditText edTen, edNoidung, edKyten;
     private Button btnSave, btnBack;
-
+    TextView textview;
+    RelativeLayout.LayoutParams layoutparams;
+    private ActionBar actionbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +34,7 @@ public class AddTroChoi extends AppCompatActivity {
         btnSave = findViewById(R.id.add_saveTrochoi);
         btnBack = findViewById(R.id.add_backTrochoi);
 
-
+        ActionBarTitleGravity("Thêm trò chơi mới");
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,5 +81,31 @@ public class AddTroChoi extends AppCompatActivity {
                 return;
             }
         });
+    }
+
+    private void ActionBarTitleGravity(String title) {
+        // TODO Auto-generated method stub
+
+        actionbar = getSupportActionBar();
+
+        textview = new TextView(getApplicationContext());
+
+        layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        textview.setLayoutParams(layoutparams);
+
+        textview.setText(title);
+
+        textview.setTextColor(Color.WHITE);
+
+        textview.setGravity(Gravity.CENTER);
+
+        textview.setTextSize(20);
+
+
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        actionbar.setCustomView(textview);
+
     }
 }

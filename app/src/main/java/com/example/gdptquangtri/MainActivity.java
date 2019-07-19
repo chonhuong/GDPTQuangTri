@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtUser, edtPass;
     private TextView txtClickDK;
     FirebaseAuth mAuth;
-    private Button btnDN;
+    private Button btnDN, btnSudung;
 
     //------------------------------------------------------------------------------------------------
 
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         actionBar = getSupportActionBar();
         actionBar.hide();
+        btnSudung = findViewById(R.id.btn_Sudungngay);
         mAuth = FirebaseAuth.getInstance();
         edtUser = findViewById(R.id.login);
         edtPass = findViewById(R.id.pass);
@@ -53,7 +54,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        btnSudung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BottomNavActivity.class));
+                finish();
+            }
+        });
     }
 
     private void DangNhap() {

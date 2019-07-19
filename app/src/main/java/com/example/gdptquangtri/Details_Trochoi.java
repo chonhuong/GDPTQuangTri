@@ -1,11 +1,16 @@
 package com.example.gdptquangtri;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -13,7 +18,9 @@ import java.util.List;
 public class Details_Trochoi extends AppCompatActivity {
     EditText ten, noidung, nguoiviet;
     Button btnCapnhat, btnXoa, btnTrove;
-
+    TextView textview;
+    RelativeLayout.LayoutParams layoutparams;
+    private ActionBar actionbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +41,7 @@ public class Details_Trochoi extends AppCompatActivity {
         String ten1 = intent.getStringExtra("ten");
         String noidung1 = intent.getStringExtra("noidung");
         String kyten1 = intent.getStringExtra("kyten");
-
+        ActionBarTitleGravity("Cập nhật trò chơi");
         ten.setText(ten1);
         noidung.setText(noidung1);
         nguoiviet.setText(kyten1);
@@ -110,5 +117,31 @@ public class Details_Trochoi extends AppCompatActivity {
                 return;
             }
         });
+    }
+
+    private void ActionBarTitleGravity(String title) {
+        // TODO Auto-generated method stub
+
+        actionbar = getSupportActionBar();
+
+        textview = new TextView(getApplicationContext());
+
+        layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        textview.setLayoutParams(layoutparams);
+
+        textview.setText(title);
+
+        textview.setTextColor(Color.WHITE);
+
+        textview.setGravity(Gravity.CENTER);
+
+        textview.setTextSize(20);
+
+
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        actionbar.setCustomView(textview);
+
     }
 }

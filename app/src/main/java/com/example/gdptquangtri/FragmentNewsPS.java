@@ -90,6 +90,7 @@ public class FragmentNewsPS extends Fragment {
 
                     Intent intent = new Intent(getActivity(), ViewNewsPhatSu.class);
                     intent.putExtra("link", newsPhatSu.getLink());
+                    intent.putExtra("title", "Tin tức Phật Sự");
                     startActivity(intent);
                 }
             });
@@ -109,6 +110,8 @@ public class FragmentNewsPS extends Fragment {
                     if (ConnectionReceiver.isConnected() == true) {
                         Intent intent = new Intent(getActivity(), ViewNewsPhatSu.class);
                         intent.putExtra("link", newsPhatSu.getLink());
+                        intent.putExtra("title", "Tin tức Phật Sự");
+
                         startActivity(intent);
                     } else {
                     Intent intent = new Intent(getActivity(), KiemTraInternetGDPT.class);

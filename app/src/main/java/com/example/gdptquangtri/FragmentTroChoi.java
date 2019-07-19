@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,7 +39,11 @@ public class FragmentTroChoi extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_trochoi, container, false);
         lv_trochoi = view.findViewById(R.id.recycler_TroChoi);
-        setHasOptionsMenu(true);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            setHasOptionsMenu(true);
+        }
         if (ConnectionReceiver.isConnected() == true) {
             myProgress = new ProgressDialog(getActivity());
             myProgress.setTitle("Đang tải dữ liệu ...");

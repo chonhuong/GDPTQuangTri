@@ -1,26 +1,40 @@
 package com.example.gdptquangtri;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ViewTroChoi extends AppCompatActivity {
     private String pudate, key, ten, noidung, kyten;
-
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    TextView textview;
+    RelativeLayout.LayoutParams layoutparams;
+    private ActionBar actionbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.context_trochoi);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         Intent intent = getIntent();
+
         pudate = intent.getStringExtra("pubdate");
         key = intent.getStringExtra("key");
         ten = intent.getStringExtra("ten");
         noidung = intent.getStringExtra("noidung");
         kyten = intent.getStringExtra("kyten");
+        ActionBarTitleGravity(ten);
         TextView txtTen = findViewById(R.id.txtTenTroChoi);
         TextView txtNoidung = findViewById(R.id.noidungTroChoi);
         TextView txtkyten = findViewById(R.id.txtKyten);
@@ -33,7 +47,9 @@ public class ViewTroChoi extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.update_trochoi, menu);
+        if (firebaseUser != null) {
+            getMenuInflater().inflate(R.menu.update_trochoi, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -51,5 +67,31 @@ public class ViewTroChoi extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void ActionBarTitleGravity(String title) {
+        // TODO Auto-generated method stub
+
+        actionbar = getSupportActionBar();
+
+        textview = new TextView(getApplicationContext());
+
+        layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        textview.setLayoutParams(layoutparams);
+
+        textview.setText(title);
+
+        textview.setTextColor(Color.WHITE);
+
+        textview.setGravity(Gravity.CENTER);
+
+        textview.setTextSize(20);
+
+
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        actionbar.setCustomView(textview);
+
     }
 }

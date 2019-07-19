@@ -94,6 +94,7 @@ public class FragmentNewsGDPT extends Fragment {
                     if (ConnectionReceiver.isConnected() == true) {
                         Intent intent = new Intent(getActivity(), ViewNewsPhatSu.class);
                         intent.putExtra("link", tinTucGDPT.getLink());
+                        intent.putExtra("title", "Tin tức GĐPT");
                         startActivity(intent);
 
                     } else {
@@ -265,6 +266,7 @@ public class FragmentNewsGDPT extends Fragment {
 
                     Intent intent = new Intent(getActivity(), ViewNewsPhatSu.class);
                     intent.putExtra("link", tinTucGDPT.getLink());
+                    intent.putExtra("title", "Tin tức GĐPT");
                     startActivity(intent);
                 }
             });

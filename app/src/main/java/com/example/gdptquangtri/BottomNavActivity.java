@@ -6,9 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -16,17 +14,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class BottomNavActivity extends AppCompatActivity {
     Fragment fragment;
     int count = 1;
+
+
+    //private TextView mTextMessage;
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    //------------------------------------------------------------------------------------------------
     TextView textview;
     RelativeLayout.LayoutParams layoutparams;
-    MainActivity mainActivity = new MainActivity();
-    private DrawerLayout dr;
-    private ActionBarDrawerToggle abdr;
-    //private TextView mTextMessage;
-    private boolean isOnline;
-    //------------------------------------------------------------------------------------------------
     private ActionBar actionbar;
     //------------------------------------------------------------------------------------------------
     //Chuyển layout trong bottomNavigation
@@ -65,11 +67,15 @@ public class BottomNavActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_Them:
-
+                    ActionBarTitleGravity("Tài khoản của tôi");
+                    if (firebaseUser != null) {
                     fragment = new FragmentThem();
 
-                    ActionBarTitleGravity("Tài khoản của tôi");
-                    loadFragment(fragment);
+                        loadFragment(fragment);
+                    } else {
+                        fragment = new FragmentThemOff();
+                        loadFragment(fragment);
+                    }
                     return true;
             }
             return false;
@@ -93,7 +99,8 @@ public class BottomNavActivity extends AppCompatActivity {
         setContentView(R.layout.bottom_nav_activity);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         //mTextMessage = findViewById(R.id.message);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         fragment = new FragmentNewsGDPT();
         ActionBarTitleGravity("Tin tức GĐPT");
 
@@ -139,7 +146,7 @@ public class BottomNavActivity extends AppCompatActivity {
 
         textview.setText(title);
 
-        textview.setTextColor(Color.BLACK);
+        textview.setTextColor(Color.WHITE);
 
         textview.setGravity(Gravity.CENTER);
 
