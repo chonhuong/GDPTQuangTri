@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
 public class ConnectionReceiver extends BroadcastReceiver {
     public static boolean isConnected() {
         ConnectivityManager
-                cm = (ConnectivityManager) WifiApp.getInstance().getApplicationContext()
+                cm = (ConnectivityManager) HomeGDPT.getInstance().getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnectedOrConnecting();
