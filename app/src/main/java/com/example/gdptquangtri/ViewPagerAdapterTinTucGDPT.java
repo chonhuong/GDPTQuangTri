@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ViewPagerAdapterTinTucGDPT extends PagerAdapter {
     private LayoutInflater inflater;
-
+    String link = "";
     private List<TinTucGDPT> arrayList;
     private Context context;
 
@@ -53,16 +53,15 @@ public class ViewPagerAdapterTinTucGDPT extends PagerAdapter {
 
 
         TinTucGDPT tinTucGDPT = arrayList.get(position);
-        final String link = tinTucGDPT.getLink();
-
+        link = tinTucGDPT.getLink();
+        String src = tinTucGDPT.getSrc();
 
         title.setText(tinTucGDPT.getTitle());
 
-            Picasso.with(context)
-                    .load(tinTucGDPT.getSrc())
-                    .placeholder(R.drawable.ic_gdpt)
-                    .into(imageView);
-
+        Picasso.with(context)
+                .load(src)
+                .placeholder(R.drawable.ic_gdpt)
+                .into(imageView);
 
 
         container.addView(itemView);

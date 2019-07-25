@@ -18,6 +18,7 @@ public class ArrayAdapterPhatSu extends BaseAdapter {
     Context context;
     DatabaseTinTuc db;
     private List<NewsPhatSu> listDBPS;
+
     public ArrayAdapterPhatSu(Context context, List<NewsPhatSu> objects) {
         this.psArrayList = objects;
         this.context = context;
@@ -52,15 +53,13 @@ public class ArrayAdapterPhatSu extends BaseAdapter {
         NewsPhatSu newsPhatSu = (NewsPhatSu) getItem(position);
         //set data
 
-
+        String src = newsPhatSu.getSrc();
         title.setText(newsPhatSu.getTitle());
-            pudata.setText(newsPhatSu.getPubDate());
-            Picasso.with(context)
-                    .load(newsPhatSu.getSrc())
-                    .placeholder(R.drawable.ic_gdpt)
-                    .into(img);
-
-
+        pudata.setText(newsPhatSu.getPubDate());
+        Picasso.with(context)
+                .load(src)
+                .placeholder(R.drawable.ic_gdpt)
+                .into(img);
 
 
         // imageView.setImageBitmap();

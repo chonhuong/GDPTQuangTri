@@ -50,7 +50,7 @@ public class FragmentNewsPS extends Fragment {
     private List<NewsPhatSu> listVPDBPS;
     private DatabaseTinTuc db;
     private ImageView img;
-
+    private String url = "http://phatgiaoquangtri.com/rss";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class FragmentNewsPS extends Fragment {
             myProgress.setCancelable(true);
             //Hiển thị Progress Bar
             myProgress.show();
-            new ReadRSSphatSu().execute("http://phatgiaoquangtri.com/rss/");
+            new ReadRSSphatSu().execute(url);
             //view pager
 //
             viewPagerAdapterPhatSu = new ViewPagerAdapterPhatSu(getActivity(), arrayViewPagerPhatSu);
@@ -114,8 +114,8 @@ public class FragmentNewsPS extends Fragment {
 
                         startActivity(intent);
                     } else {
-                    Intent intent = new Intent(getActivity(), KiemTraInternetGDPT.class);
-                    intent.putExtra("title", "Tin tức Phật Sự");
+                        Intent intent = new Intent(getActivity(), KiemTraInternetGDPT.class);
+                        intent.putExtra("title", "Tin tức Phật Sự");
                         startActivity(intent);
                     }
 
@@ -141,27 +141,27 @@ public class FragmentNewsPS extends Fragment {
         byte[] hinhanh = stream.toByteArray();
 
 
-        listDBPS = db.getAllPS();
-        if (listDBPS.size() < 1) {
-            long id = db.insertPS(tieuDe, link, pubDate, hinhanh);
-            NewsPhatSu newsPhatSu1 = db.getPS(id);
-
-            listDBPS.add(0, newsPhatSu1);
-        }
-
-        int k = 0;
-        for (int j = 0; j < listDBPS.size(); j++) {
-            listDBPS = db.getAllPS();
-            NewsPhatSu newsPhatSu1 = listDBPS.get(j);
-
-            if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
-                k++;
-            }
-        }
-
-        if (k == 0) {
-            db.insertPS(tieuDe, link, pubDate, hinhanh);
-        }
+//        listDBPS = db.getAllPS();
+//        if (listDBPS.size() < 1) {
+//            long id = db.insertPS(tieuDe, link, pubDate, hinhanh);
+//            NewsPhatSu newsPhatSu1 = db.getPS(id);
+//
+//            listDBPS.add(0, newsPhatSu1);
+//        }
+//
+//        int k = 0;
+//        for (int j = 0; j < listDBPS.size(); j++) {
+//            listDBPS = db.getAllPS();
+//            NewsPhatSu newsPhatSu1 = listDBPS.get(j);
+//
+//            if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
+//                k++;
+//            }
+//        }
+//
+//        if (k == 0) {
+        db.insertPS(tieuDe, link, pubDate, hinhanh);
+        //}
     }
 
     //-------------------------------------------------------------------------------------------------------------
@@ -175,32 +175,32 @@ public class FragmentNewsPS extends Fragment {
         byte[] hinhanh = stream.toByteArray();
 
 
-        listVPDBPS = db.getAllVPPS();
-        if (listVPDBPS.size() < 1) {
-            long id = db.insertVPPS(tieuDe, link, pubDate, hinhanh);
-            NewsPhatSu newsPhatSu1 = db.getVPPS(id);
-
-            listVPDBPS.add(0, newsPhatSu1);
-        } else {
-            String title = "";
-            int k = 0;
-            listVPDBPS = db.getAllVPPS();
-            for (int j = 0; j < listVPDBPS.size(); j++) {
-
-                NewsPhatSu newsPhatSu1 = listVPDBPS.get(j);
-
-                if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
-                    title = newsPhatSu1.getTitle();
-                    k++;
-                }
-                if (k == 0) {
-                    db.deleteVPGDPT(title);
-                    db.insertVPPS(tieuDe, link, pubDate, hinhanh);
-                }
-
-            }
-
-        }
+//        listVPDBPS = db.getAllVPPS();
+//        if (listVPDBPS.size() < 1) {
+//            long id = db.insertVPPS(tieuDe, link, pubDate, hinhanh);
+//            NewsPhatSu newsPhatSu1 = db.getVPPS(id);
+//
+//            listVPDBPS.add(0, newsPhatSu1);
+//        } else {
+//
+//            int k = 0;
+//            listVPDBPS = db.getAllVPPS();
+//            for (int j = 0; j < listVPDBPS.size(); j++) {
+//
+//                NewsPhatSu newsPhatSu1 = listVPDBPS.get(j);
+//
+//                if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
+//
+//                    k++;
+//                }
+//                if (k == 0) {
+//                    db.deleteVPGDPT(newsPhatSu1.getTitle());
+        db.insertVPPS(tieuDe, link, pubDate, hinhanh);
+//                }
+//
+//            }
+//
+//        }
     }
 
     private class ReadRSSphatSu extends AsyncTask<String, Integer, String> {
@@ -262,19 +262,60 @@ public class FragmentNewsPS extends Fragment {
                 if (i == 0) {
                     // arrayPhatSu.add(new NewsPhatSu(tieuDe, link,hinhanh, pubDate));
                     arrayViewPagerPhatSu.add(new NewsPhatSu(tieuDe, link, hinhanh, pubDate));
-                    new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+
+
+                    listVPDBPS = db.getAllVPPS();
+                    if (listVPDBPS.size() < 1) {
+                        new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+                    } else {
+
+                        int k = 0;
+                        listVPDBPS = db.getAllVPPS();
+                        for (int j = 0; j < listVPDBPS.size(); j++) {
+
+                            NewsPhatSu newsPhatSu1 = listVPDBPS.get(j);
+
+                            if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
+
+                                k++;
+                            }
+                            if (k == 0) {
+                                db.deleteVPGDPT(newsPhatSu1.getTitle());
+                                new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+                            }
+
+                        }
+
+                    }
                 } else {
                     arrayPhatSu.add(new NewsPhatSu(tieuDe, link, hinhanh, pubDate));
-                    new DownloadImageTask(img, pubDate, link, tieuDe).execute(hinhanh);
+                    listDBPS = db.getAllPS();
+                    if (listDBPS.size() < 1) {
+                        new DownloadImageTask(img, pubDate, link, tieuDe).execute(hinhanh);
+                    } else {
+                        int k = 0;
+                        for (int j = 0; j < listDBPS.size(); j++) {
+                            listDBPS = db.getAllPS();
+                            NewsPhatSu newsPhatSu1 = listDBPS.get(j);
+
+                            if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
+                                k++;
+                            }
+                        }
+
+                        if (k == 0) {
+                            new DownloadImageTask(img, pubDate, link, tieuDe).execute(hinhanh);
+                        }
+                    }
                 }
 
 
             }
 
-            myProgress.dismiss();
+
             adapterPS.notifyDataSetChanged();
             viewPagerAdapterPhatSu.notifyDataSetChanged();
-
+            myProgress.dismiss();
 
             // Toast.makeText(,tieuDe,Toast.LENGTH_SHORT).show();
         }

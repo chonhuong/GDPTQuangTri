@@ -66,11 +66,17 @@ public class ViewPagerAdapterTinTucGDPTOff extends PagerAdapter {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ConnectionReceiver.isConnected() == true) {
+                    Intent intent = new Intent(context, ViewNewsPhatSu.class);
+                    intent.putExtra("link", link);
+                    intent.putExtra("title", "Tin tức GĐPT");
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, KiemTraInternetGDPT.class);
 
-                Intent intent = new Intent(context, ViewNewsPhatSu.class);
-                intent.putExtra("link", link);
-                intent.putExtra("title", "Tin tức GĐPT");
-                context.startActivity(intent);
+                    intent.putExtra("title", "Tin tức GĐPT");
+                    context.startActivity(intent);
+                }
             }
         });
 

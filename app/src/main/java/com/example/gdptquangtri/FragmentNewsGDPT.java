@@ -79,6 +79,23 @@ public class FragmentNewsGDPT extends Fragment {
             //Hiển thị Progress Bar
             myProgress.show();
             new ReadGDPT().execute(url);
+
+            viewPagerAdapterTinTucGDPT = new ViewPagerAdapterTinTucGDPT(getActivity(), gdptArrayList);
+            viewPager.setAdapter(viewPagerAdapterTinTucGDPT);
+            viewPager.setOffscreenPageLimit(2);
+            adapterTinTucGDPT = new ArrayAdapterTinTucGDPT(arrayNewssGDPT, getActivity());
+            listViewGDPT.setAdapter(adapterTinTucGDPT);
+            listViewGDPT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    TinTucGDPT tinTucGDPT = arrayNewssGDPT.get(position);
+
+                    Intent intent = new Intent(getActivity(), ViewNewsPhatSu.class);
+                    intent.putExtra("link", tinTucGDPT.getLink());
+                    intent.putExtra("title", "Tin tức GĐPT");
+                    startActivity(intent);
+                }
+            });
         } else {
             Toast.makeText(getActivity(), "Không có kết nối mạng", Toast.LENGTH_LONG).show();
 
@@ -121,27 +138,27 @@ public class FragmentNewsGDPT extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] hinhanh = stream.toByteArray();
 
-
-        arrayListDBTT = db.getAllGDPT();
-        if (arrayListDBTT.size() < 1) {
-            long id = db.insertGDPT(tieuDe, link, pubDate, hinhanh);
-            TinTucGDPT tinTucGDPT1 = db.getGDPT(id);
-            arrayListDBTT.add(0, tinTucGDPT1);
-        }
-
-        int k = 0;
-        for (int j = 0; j < arrayListDBTT.size(); j++) {
-            arrayListDBTT = db.getAllGDPT();
-            TinTucGDPT tinTucGDPT1 = arrayListDBTT.get(j);
-
-            if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
-                k++;
-            }
-        }
-
-        if (k == 0) {
-            db.insertGDPT(tieuDe, link, pubDate, hinhanh);
-        }
+//
+//        arrayListDBTT = db.getAllGDPT();
+//        if (arrayListDBTT.size() < 1) {
+//            long id = db.insertGDPT(tieuDe, link, pubDate, hinhanh);
+//            TinTucGDPT tinTucGDPT1 = db.getGDPT(id);
+//            arrayListDBTT.add(0, tinTucGDPT1);
+//        }
+//
+//        int k = 0;
+//        for (int j = 0; j < arrayListDBTT.size(); j++) {
+//            arrayListDBTT = db.getAllGDPT();
+//            TinTucGDPT tinTucGDPT1 = arrayListDBTT.get(j);
+//
+//            if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
+//                k++;
+//            }
+//        }
+//
+//        if (k == 0) {
+        db.insertGDPT(tieuDe, link, pubDate, hinhanh);
+//        }
     }
 //-------------------------------------------------------------------------------------------------------------
 
@@ -154,31 +171,30 @@ public class FragmentNewsGDPT extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] hinhanh = stream.toByteArray();
 
-
-        arrayListVPDBTT = db.getAllGDPT();
-        if (arrayListVPDBTT.size() < 1) {
-            long id = db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
-            TinTucGDPT tinTucGDPT1 = db.getVPGDPT(id);
-            arrayListVPDBTT.add(0, tinTucGDPT1);
-        } else {
-            int k = 0;
-            String title = "";
-            arrayListVPDBTT = db.getAllVPGDPT();
-            for (int j = 0; j < arrayListVPDBTT.size(); j++) {
-                //arrayListVPDBTT = db.getAllVPGDPT();
-                TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(j);
-
-                if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
-                    title = tinTucGDPT1.getTitle();
-                    k++;
-                }
-                if (k == 0) {
-                    db.deleteVPGDPT(title);
-                    db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
-                }
-            }
-
-        }
+//
+//        arrayListVPDBTT = db.getAllGDPT();
+//        if (arrayListVPDBTT.size() < 1) {
+//            long id = db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
+//            TinTucGDPT tinTucGDPT1 = db.getVPGDPT(id);
+//            arrayListVPDBTT.add(0, tinTucGDPT1);
+//        } else {
+//            int k = 0;
+//
+//            arrayListVPDBTT = db.getAllVPGDPT();
+//            for (int j = 0; j < arrayListVPDBTT.size(); j++) {
+//                //arrayListVPDBTT = db.getAllVPGDPT();
+//                TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(j);
+//
+//                if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
+//                    k++;
+//                }
+//                if (k == 0) {
+//                    db.deleteVPGDPT(tinTucGDPT1.getTitle());
+        db.insertVPGDPT(tieuDe, link, pubDate, hinhanh);
+//                }
+//            }
+//
+//        }
 
     }
 
@@ -242,38 +258,58 @@ public class FragmentNewsGDPT extends Fragment {
 
                 if (i == 0) {
 
-                    new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+
                     gdptArrayList.add(new TinTucGDPT(tieuDe, link, hinhanh, pubDate));
+
+                    arrayListVPDBTT = db.getAllGDPT();
+                    if (arrayListVPDBTT.size() < 1) {
+                        new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+                    } else {
+                        int k = 0;
+
+                        arrayListVPDBTT = db.getAllVPGDPT();
+                        for (int j = 0; j < arrayListVPDBTT.size(); j++) {
+                            //arrayListVPDBTT = db.getAllVPGDPT();
+                            TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(j);
+
+                            if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
+                                k++;
+                            }
+                            if (k == 0) {
+                                db.deleteVPGDPT(tinTucGDPT1.getTitle());
+                                new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+                            }
+                        }
+
+                    }
                 } else {
 
-                    new DownloadImageTask(img, pubDate, link, tieuDe).execute(hinhanh);
+
                     arrayNewssGDPT.add(new TinTucGDPT(tieuDe, link, hinhanh, pubDate));
 
+                    arrayListDBTT = db.getAllGDPT();
+                    if (arrayListDBTT.size() < 1) {
+                        new DownloadImageTask(img, pubDate, link, tieuDe).execute(hinhanh);
+                    } else {
+                        int k = 0;
+                        for (int j = 0; j < arrayListDBTT.size(); j++) {
+                            arrayListDBTT = db.getAllGDPT();
+                            TinTucGDPT tinTucGDPT1 = arrayListDBTT.get(j);
+                            if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
+                                k++;
+                            }
+                        }
+                        if (k == 0) {
+                            new DownloadImageTask(img, pubDate, link, tieuDe).execute(hinhanh);
+                        }
+                    }
                 }
-
-
             }
 
-            viewPagerAdapterTinTucGDPT = new ViewPagerAdapterTinTucGDPT(getActivity(), gdptArrayList);
-            viewPager.setAdapter(viewPagerAdapterTinTucGDPT);
-            viewPager.setOffscreenPageLimit(2);
-            adapterTinTucGDPT = new ArrayAdapterTinTucGDPT(arrayNewssGDPT, getActivity());
-            listViewGDPT.setAdapter(adapterTinTucGDPT);
-            listViewGDPT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    TinTucGDPT tinTucGDPT = arrayNewssGDPT.get(position);
 
-                    Intent intent = new Intent(getActivity(), ViewNewsPhatSu.class);
-                    intent.putExtra("link", tinTucGDPT.getLink());
-                    intent.putExtra("title", "Tin tức GĐPT");
-                    startActivity(intent);
-                }
-            });
-            myProgress.dismiss();
             adapterTinTucGDPT.notifyDataSetChanged();
             viewPagerAdapterTinTucGDPT.notifyDataSetChanged();
-
+            myProgress.dismiss();
 
             // Toast.makeText(getActivity(), tieuDe, Toast.LENGTH_SHORT).show();
         }

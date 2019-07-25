@@ -66,11 +66,17 @@ public class ViewPagerAdapterPhatSuOff extends PagerAdapter {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (ConnectionReceiver.isConnected() == true) {
                 Intent intent = new Intent(context, ViewNewsPhatSu.class);
                 intent.putExtra("link", link);
                 intent.putExtra("title", "Tin tức Phật Sự");
-                context.startActivity(intent);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, KiemTraInternetGDPT.class);
+                    intent.putExtra("title", "Tin tức Phật Sự");
+                    context.startActivity(intent);
+                }
+
             }
         });
 

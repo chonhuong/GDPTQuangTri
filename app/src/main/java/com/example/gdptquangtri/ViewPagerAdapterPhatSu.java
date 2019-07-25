@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ViewPagerAdapterPhatSu extends PagerAdapter {
     private LayoutInflater inflater;
-
+    String link = "";
     private List<NewsPhatSu> arrayList;
     private Context context;
 
@@ -53,15 +53,14 @@ public class ViewPagerAdapterPhatSu extends PagerAdapter {
 
 
         NewsPhatSu newsPhatSu = arrayList.get(position);
-        final String link = newsPhatSu.getLink();
-
+        link = newsPhatSu.getLink();
+        String src = newsPhatSu.getSrc();
 
         title.setText(newsPhatSu.getTitle());
-            Picasso.with(context)
-                    .load(newsPhatSu.getSrc())
-                    .placeholder(R.drawable.ic_gdpt)
-                    .into(imageView);
-
+        Picasso.with(context)
+                .load(src)
+                .placeholder(R.drawable.ic_gdpt)
+                .into(imageView);
 
 
         container.addView(itemView);

@@ -55,18 +55,16 @@ public class ArrayAdapterTinTucGDPT extends BaseAdapter {
 
         TinTucGDPT tinTucGDPT = (TinTucGDPT) getItem(position);
         //set data
-
+        String src = tinTucGDPT.getSrc();
 
         title.setText(tinTucGDPT.getTitle());
-            pudata.setText(tinTucGDPT.getPubDate());
+        pudata.setText(tinTucGDPT.getPubDate());
 
 
-            Picasso.with(context)
-                    .load(tinTucGDPT.getSrc())
-                    .placeholder(R.drawable.ic_gdpt)
-                    .into(img);
-
-
+        Picasso.with(context)
+                .load(src)
+                .placeholder(R.drawable.ic_gdpt)
+                .into(img);
 
 
         // imageView.setImageBitmap();
