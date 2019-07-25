@@ -19,10 +19,12 @@ public class HomeGDPT extends Application {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
         wifiInstance = this;
         if (firebaseUser != null) {
             startActivity(new Intent(HomeGDPT.this, BottomNavActivity.class));
         }
 
     }
+
 }
