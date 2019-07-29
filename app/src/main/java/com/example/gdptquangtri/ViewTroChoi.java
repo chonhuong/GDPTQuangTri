@@ -10,9 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 public class ViewTroChoi extends AppCompatActivity {
     private String pudate, key, ten, noidung, kyten;
@@ -21,6 +24,7 @@ public class ViewTroChoi extends AppCompatActivity {
     TextView textview;
     RelativeLayout.LayoutParams layoutparams;
     private ActionBar actionbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,31 @@ public class ViewTroChoi extends AppCompatActivity {
                 intent.putExtra("ten", ten);
                 intent.putExtra("kyten", kyten);
                 startActivity(intent);
+                return true;
+            case R.id.Menu_DeleteTrochoi:
+                new FisebaseDatabase().DeleteTroChoi(key, new FisebaseDatabase.DataStatus() {
+                    @Override
+                    public void DataIsLoaded(List<TroChoi> troChois, List<String> key) {
+
+                    }
+
+                    @Override
+                    public void DataIsInserted() {
+
+                    }
+
+                    @Override
+                    public void DataIsUpdate() {
+
+                    }
+
+                    @Override
+                    public void DataIsDelete() {
+                        Toast.makeText(ViewTroChoi.this, "Xóa thành công", Toast.LENGTH_LONG).show();
+                        finish();
+                        return;
+                    }
+                });
                 return true;
         }
         return super.onOptionsItemSelected(item);

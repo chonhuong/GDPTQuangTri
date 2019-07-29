@@ -22,9 +22,13 @@ public class HomeGDPT extends Application {
 
         wifiInstance = this;
         if (firebaseUser != null) {
+
             startActivity(new Intent(HomeGDPT.this, BottomNavActivity.class));
+
+
         }
 
     }
+
 
 }

@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Details_Trochoi extends AppCompatActivity {
     EditText ten, noidung, nguoiviet;
-    Button btnCapnhat, btnXoa, btnTrove;
+    Button btnCapnhat, btnTrove;
     TextView textview;
     RelativeLayout.LayoutParams layoutparams;
     private ActionBar actionbar;
@@ -31,7 +31,7 @@ public class Details_Trochoi extends AppCompatActivity {
 
 
         btnCapnhat = findViewById(R.id.btn_capnhatTrochoi);
-        btnXoa = findViewById(R.id.btn_xoaTrochoi);
+
         btnTrove = findViewById(R.id.btn_trove);
 
 
@@ -75,35 +75,6 @@ public class Details_Trochoi extends AppCompatActivity {
                     @Override
                     public void DataIsDelete() {
 
-                    }
-                });
-            }
-        });
-
-        btnXoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new FisebaseDatabase().DeleteTroChoi(key1, new FisebaseDatabase.DataStatus() {
-                    @Override
-                    public void DataIsLoaded(List<TroChoi> troChois, List<String> key) {
-
-                    }
-
-                    @Override
-                    public void DataIsInserted() {
-
-                    }
-
-                    @Override
-                    public void DataIsUpdate() {
-
-                    }
-
-                    @Override
-                    public void DataIsDelete() {
-                        Toast.makeText(Details_Trochoi.this, "Xóa thành công", Toast.LENGTH_LONG).show();
-                        finish();
-                        return;
                     }
                 });
             }

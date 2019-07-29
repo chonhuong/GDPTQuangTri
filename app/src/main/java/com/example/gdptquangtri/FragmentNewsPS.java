@@ -271,20 +271,18 @@ public class FragmentNewsPS extends Fragment {
 
                         int k = 0;
                         listVPDBPS = db.getAllVPPS();
-                        for (int j = 0; j < listVPDBPS.size(); j++) {
 
-                            NewsPhatSu newsPhatSu1 = listVPDBPS.get(j);
+
+                        NewsPhatSu newsPhatSu1 = listVPDBPS.get(0);
 
                             if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
 
                                 k++;
-                            }
-                            if (k == 0) {
-                                db.deleteVPGDPT(newsPhatSu1.getTitle());
+                            } else {
+                                db.deleteVPPS(newsPhatSu1.getTitle());
                                 new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
                             }
 
-                        }
 
                     }
                 } else {

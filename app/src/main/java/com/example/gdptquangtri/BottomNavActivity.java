@@ -1,8 +1,11 @@
 package com.example.gdptquangtri;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -52,13 +55,13 @@ public class BottomNavActivity extends AppCompatActivity {
 
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_TuHoc:
-
-                    ActionBarTitleGravity("Tu học - Huấn luyện");
-                    fragment = new FragmentTuHoc();
-
-                    loadFragment(fragment);
-                    return true;
+//                case R.id.navigation_TuHoc:
+//
+//                    ActionBarTitleGravity("Tu học - Huấn luyện");
+//                    fragment = new FragmentTuHoc();
+//
+//                    loadFragment(fragment);
+//                    return true;
                 case R.id.navigation_TroChoi:
 
                     fragment = new FragmentTroChoi();
@@ -98,6 +101,7 @@ public class BottomNavActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_nav_activity);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
         //mTextMessage = findViewById(R.id.message);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -111,6 +115,7 @@ public class BottomNavActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
 
@@ -119,10 +124,21 @@ public class BottomNavActivity extends AppCompatActivity {
 
         if (R.id.navigation_newsGDPT == seletedItemId) {
             if (count == 2) {
-                finish();
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                if (firebaseUser != null) {
+                    Intent intent1 = new Intent(getApplicationContext(), BottomNavActivity.class);
+                    startActivity(intent1);
+
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(intent);
+                    finish();
+                } else finish();
 
             } else {
-                Toast.makeText(this, "Back lần nữa để thoát ứng dụng", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Nhấn lần nữa để thoát", Toast.LENGTH_SHORT).show();
                 count += 1;
             }
 

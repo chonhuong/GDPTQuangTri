@@ -4,4 +4,8 @@
         android:id="@+id/Menu_updateTrochoi"
 
         android:title="Cập nhật trò chơi" />
+    <item
+        android:id="@+id/Menu_DeleteTrochoi"
+
+        android:title="Xóa trò chơi" />
 </menu>

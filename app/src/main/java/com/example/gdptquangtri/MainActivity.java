@@ -1,5 +1,6 @@
 package com.example.gdptquangtri;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         actionBar = getSupportActionBar();
         actionBar.hide();
         btnSudung = findViewById(R.id.btn_Sudungngay);
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, DangKyThanhVien.class);
                 startActivity(intent);
 
+
             }
         });
 
@@ -61,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+//
     }
+
 
     private void DangNhap() {
 

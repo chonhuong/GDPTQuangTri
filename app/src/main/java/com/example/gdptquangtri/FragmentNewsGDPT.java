@@ -268,18 +268,17 @@ public class FragmentNewsGDPT extends Fragment {
                         int k = 0;
 
                         arrayListVPDBTT = db.getAllVPGDPT();
-                        for (int j = 0; j < arrayListVPDBTT.size(); j++) {
+
                             //arrayListVPDBTT = db.getAllVPGDPT();
-                            TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(j);
+                        TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(0);
 
                             if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
                                 k++;
-                            }
-                            if (k == 0) {
+                            } else {
                                 db.deleteVPGDPT(tinTucGDPT1.getTitle());
                                 new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
                             }
-                        }
+
 
                     }
                 } else {
