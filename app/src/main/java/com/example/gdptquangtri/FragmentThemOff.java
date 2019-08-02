@@ -23,16 +23,16 @@ public class FragmentThemOff extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_themoff, container, false);
-        btnDangKy = view.findViewById(R.id.btn_dangkyThem);
+        //  btnDangKy = view.findViewById(R.id.btn_dangkyThem);
         btnDangnhap = view.findViewById(R.id.btn_dangnhapThem);
 
-        btnDangKy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), DangKyThanhVien.class);
-                startActivity(intent);
-            }
-        });
+//        btnDangKy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), DangKyThanhVien.class);
+//                startActivity(intent);
+//            }
+//        });
 
         btnDangnhap.setOnClickListener(new View.OnClickListener() {
             @Override

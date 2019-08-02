@@ -47,16 +47,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        txtClickDK = findViewById(R.id.txt_clickDK);
-        txtClickDK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DangKyThanhVien.class);
-                startActivity(intent);
-
-
-            }
-        });
+        //    txtClickDK = findViewById(R.id.txt_clickDK);
+//        txtClickDK.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, DangKyThanhVien.class);
+//                startActivity(intent);
+//
+//
+//            }
+//        });
 
         btnSudung.setOnClickListener(new View.OnClickListener() {
             @Override
