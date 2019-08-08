@@ -310,10 +310,10 @@ public class FragmentNewsPS extends Fragment {
 
             }
 
-
+            myProgress.dismiss();
             adapterPS.notifyDataSetChanged();
             viewPagerAdapterPhatSu.notifyDataSetChanged();
-            myProgress.dismiss();
+
 
             // Toast.makeText(,tieuDe,Toast.LENGTH_SHORT).show();
         }

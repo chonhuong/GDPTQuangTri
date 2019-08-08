@@ -1,5 +1,6 @@
 package com.example.gdptquangtri;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import java.util.List;
 
 public class ViewTroChoi extends AppCompatActivity {
     private String pudate, key, ten, noidung, kyten;
+    Dialog dialog;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     TextView textview;
@@ -46,6 +49,7 @@ public class ViewTroChoi extends AppCompatActivity {
         txtNoidung.setText("     " + noidung);
         txtkyten.setText(kyten);
 
+
         //  Toast.makeText(this,link,Toast.LENGTH_SHORT).show();
     }
 
@@ -57,6 +61,45 @@ public class ViewTroChoi extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    public void showDialog() {
+        dialog = new Dialog(ViewTroChoi.this);
+
+        dialog.setContentView(R.layout.dialog_delete);
+        dialog.show();
+
+    }
+
+    public void OnClickDongY(View view) {
+
+        new FisebaseDatabase().DeleteTroChoi(key, new FisebaseDatabase.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<TroChoi> troChois, List<String> key) {
+
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdate() {
+
+            }
+
+            @Override
+            public void DataIsDelete() {
+                Toast.makeText(ViewTroChoi.this, "Xóa thành công", Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
+        });
+
+    }
+
+    public void OnClickTroVe(View view) {
+        dialog.dismiss();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -70,29 +113,8 @@ public class ViewTroChoi extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.Menu_DeleteTrochoi:
-                new FisebaseDatabase().DeleteTroChoi(key, new FisebaseDatabase.DataStatus() {
-                    @Override
-                    public void DataIsLoaded(List<TroChoi> troChois, List<String> key) {
+                showDialog();
 
-                    }
-
-                    @Override
-                    public void DataIsInserted() {
-
-                    }
-
-                    @Override
-                    public void DataIsUpdate() {
-
-                    }
-
-                    @Override
-                    public void DataIsDelete() {
-                        Toast.makeText(ViewTroChoi.this, "Xóa thành công", Toast.LENGTH_LONG).show();
-                        finish();
-                        return;
-                    }
-                });
                 return true;
         }
         return super.onOptionsItemSelected(item);

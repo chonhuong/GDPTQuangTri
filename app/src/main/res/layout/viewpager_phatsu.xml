@@ -18,13 +18,17 @@
         android:src="@drawable/ic_gdpt" />
 
     <TextView
+        android:layout_gravity="bottom"
         android:id="@+id/titleViewPagerPS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:background="@color/common_google_signin_btn_text_light_focused"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="3dp"
+        android:padding="5dp"
+        android:text="jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
         android:textColor="#ffff"
         android:textSize="15sp"
         android:textStyle="bold" />
+
 </FrameLayout>

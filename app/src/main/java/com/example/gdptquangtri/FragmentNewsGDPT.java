@@ -305,10 +305,10 @@ public class FragmentNewsGDPT extends Fragment {
                 }
             }
 
-
+            myProgress.dismiss();
             adapterTinTucGDPT.notifyDataSetChanged();
             viewPagerAdapterTinTucGDPT.notifyDataSetChanged();
-            myProgress.dismiss();
+
 
             // Toast.makeText(getActivity(), tieuDe, Toast.LENGTH_SHORT).show();
         }
