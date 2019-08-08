@@ -16,6 +16,7 @@ public class ViewNewsPhatSu extends AppCompatActivity {
     TextView textview;
     RelativeLayout.LayoutParams layoutparams;
     private ActionBar actionbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

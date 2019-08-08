@@ -100,6 +100,7 @@ public class ViewTroChoi extends AppCompatActivity {
     public void OnClickTroVe(View view) {
         dialog.dismiss();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -17,12 +17,12 @@ public class RecyclerView_TroChoi {
     private Context mContext;
     private TrochoiAdapter trochoiAdapter;
     ProgressDialog myProgress;
+
     public void setConfig(RecyclerView recyclerView, Context context, List<TroChoi> troChois, List<String> keys) {
         mContext = context;
         trochoiAdapter = new TrochoiAdapter(troChois, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(trochoiAdapter);
-
 
 
     }

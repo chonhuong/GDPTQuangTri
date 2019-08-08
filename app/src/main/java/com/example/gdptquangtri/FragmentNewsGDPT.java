@@ -269,15 +269,15 @@ public class FragmentNewsGDPT extends Fragment {
 
                         arrayListVPDBTT = db.getAllVPGDPT();
 
-                            //arrayListVPDBTT = db.getAllVPGDPT();
+                        //arrayListVPDBTT = db.getAllVPGDPT();
                         TinTucGDPT tinTucGDPT1 = arrayListVPDBTT.get(0);
 
-                            if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
-                                k++;
-                            } else {
-                                db.deleteVPGDPT(tinTucGDPT1.getTitle());
-                                new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
-                            }
+                        if (tinTucGDPT1.getTitle().equalsIgnoreCase(tieuDe)) {
+                            k++;
+                        } else {
+                            db.deleteVPGDPT(tinTucGDPT1.getTitle());
+                            new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+                        }
 
 
                     }

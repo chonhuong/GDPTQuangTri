@@ -72,7 +72,7 @@ public class BottomNavActivity extends AppCompatActivity {
                 case R.id.navigation_Them:
                     ActionBarTitleGravity("Tài khoản của tôi");
                     if (firebaseUser != null) {
-                    fragment = new FragmentThem();
+                        fragment = new FragmentThem();
 
                         loadFragment(fragment);
                     } else {

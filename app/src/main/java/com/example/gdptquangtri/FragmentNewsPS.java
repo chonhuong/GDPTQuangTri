@@ -51,6 +51,7 @@ public class FragmentNewsPS extends Fragment {
     private DatabaseTinTuc db;
     private ImageView img;
     private String url = "http://phatgiaoquangtri.com/rss";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -275,13 +276,13 @@ public class FragmentNewsPS extends Fragment {
 
                         NewsPhatSu newsPhatSu1 = listVPDBPS.get(0);
 
-                            if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
+                        if (newsPhatSu1.getTitle().equalsIgnoreCase(tieuDe)) {
 
-                                k++;
-                            } else {
-                                db.deleteVPPS(newsPhatSu1.getTitle());
-                                new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
-                            }
+                            k++;
+                        } else {
+                            db.deleteVPPS(newsPhatSu1.getTitle());
+                            new DownloadImageTaskVP(img, pubDate, link, tieuDe).execute(hinhanh);
+                        }
 
 
                     }

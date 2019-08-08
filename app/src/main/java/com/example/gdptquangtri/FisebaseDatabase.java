@@ -33,6 +33,7 @@ public class FisebaseDatabase {
                     }
                 });
     }
+
     public void readTroChoi(final DataStatus dataStatus) {
 
         mReferenceTroChoi.addValueEventListener(new ValueEventListener() {
